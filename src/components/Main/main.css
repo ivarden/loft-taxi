@@ -1,0 +1,34 @@
+/* DESCTOP */
+.section {
+  flex: 1 1 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./map.jpg");
+}
+.section.authorized {
+  flex: 0 0 100%;
+  min-height: 92vh;
+}
+
+/* TABLET */
+@media (max-width: 768px) {
+  .section.authorized {
+    min-height: 90vh;
+    padding: 1rem;
+  }
+}
+
+/* PHONE */
+@media (max-width: 420px) {
+  .section {
+    flex: 0 0 auto;
+    min-height: 90vh;
+    padding: 1rem;
+  }
+  .section.authorized {
+    flex: 0 0 auto;
+    min-height: 90vh;
+    padding: 1rem;
+  }
+}
