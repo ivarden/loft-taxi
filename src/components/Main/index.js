@@ -1,17 +1,11 @@
 import React from "react";
-import LogIn from "../LogIn";
-import SignUp from "../SignUp";
-import './main.css'
+import "./main.css";
 
-export default function Main({ authorized, setAuthorized }) {
+export default function Main({ authorized, style, children}) {
+
   return (
-    <main className={authorized ? "section authorized" : "section"}>
-      {!authorized && (
-        <LogIn authorized={authorized} setAuthorized={setAuthorized} />
-      )}
-      {authorized && (
-        <SignUp authorized={authorized} setAuthorized={setAuthorized} />
-      )}
+    <main style={style} className={authorized ? "section authorized" : "section"} >
+      {children}
     </main>
   );
 }

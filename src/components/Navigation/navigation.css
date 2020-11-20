@@ -8,8 +8,12 @@
   margin-left: 2rem;
   cursor: pointer;
   text-transform: uppercase;
+  text-decoration: none;
 }
 .link-wrap a:hover {
+  color: #fdbf5a;
+}
+.link-wrap .active {
   color: #fdbf5a;
 }
 

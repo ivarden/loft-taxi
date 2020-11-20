@@ -1,7 +1,11 @@
+body{
+  min-height: 100vh;
+}
 /* DESCTOP */
 .App {
   display: flex;
   text-align: center;
+  min-height: 100vh;
 }
 .App.authorized {
   display: flex;

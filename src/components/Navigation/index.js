@@ -1,15 +1,35 @@
 import React from "react";
-import './navigation.css'
+import { NavLink, useHistory } from "react-router-dom";
+import "./navigation.css";
 
-export default function Navigation({ authorized, setAuthorized }) {
+export default function Navigation({
+  authorized,
+  setAuthorized
+}) {
+  const history = useHistory();
+  const handleLogOut = () => {
+    setAuthorized();
+    history.push("/");
+  };
   return (
     <>
       {authorized && (
         <div className="nav-wrap authorized">
           <div className="link-wrap authorized">
-            <a>Map</a>
-            <a>Profile</a>
-            <a onClick={() => setAuthorized(false)}>Log out</a>
+            <NavLink to="/map" activeClassName="active">
+              Map
+            </NavLink>
+            <NavLink to="/profile" activeClassName="active">
+              Profile
+            </NavLink>
+            <NavLink
+              to="/"
+              exact
+              onClick={handleLogOut}
+              activeClassName="active"
+            >
+              Log out
+            </NavLink>
           </div>
         </div>
       )}

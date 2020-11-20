@@ -1,14 +1,13 @@
 /* DESCTOP */
 .section {
-  flex: 1 1 70%;
+  flex: 1 1 auto;
   display: flex;
   justify-content: center;
-  align-items: center;
   background-image: url("./map.jpg");
 }
 .section.authorized {
-  flex: 0 0 100%;
-  min-height: 92vh;
+  flex: 1 1 100%;
+  justify-content: normal;
 }
 
 /* TABLET */

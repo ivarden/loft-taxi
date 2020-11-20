@@ -14,74 +14,55 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "400px",
     width: "100%",
     backgroundColor: "white",
-    justifyContent: "center",
     alignItems: "center",
     borderRadius: "10px",
     boxSizing: "border-box",
     padding: "20px 40px",
   },
+  textRight: {
+    alignSelf: "flex-end",
+    marginBottom: "1.5rem",
+    marginTop: "0",
+  },
   button: {
-    margin: "1rem 0 .5rem 0",
+    marginBottom: ".5rem",
   },
 }));
 
-export default function SignUp({ authorized, setAuthorized }) {
+export default function SignIn({ authorized, setAuthorized }) {
   const classes = useStyles();
   const history = useHistory();
-  // const [signin, setSignin] = useState({
-  //   email: null,
-  //   name: null,
-  //   password: null,
-  // });
 
   const onSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
-    const name = e.target.name.value;
     const password = e.target.password.value;
-    history.push("/map");
-
     setAuthorized(!authorized);
-    console.log(`\n email: ${email} \n name: ${name} \n password: ${password}`);
-    // console.log(signin);
+    history.push("/map");
+    console.log(`\n email: ${email} \n password: ${password}`);
   };
-  // const onChangeInput = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   console.log(name, value)
-  //   setSignin((state) => ({ ...state, [name]: value }));
-  // };
 
   return (
     <Box component="div" className={classes.root}>
       <Form onSubmit={onSubmit}>
-        <Input
-          // onChange={onChangeInput}
-          label="Email"
-          name="email"
-        />
-        <Input
-          // onChange={onChangeInput}
-          label="Your Name"
-          name="name"
-        />
-        <Input
-          // onChange={onChangeInput}
-          label="Password"
-          name="password"
-        />
+        <Input label="Email" name="email" />
+        <Input label="Password" name="password" />
+        <p className={classes.textRight}>Forgot password?</p>
         <Button
           type="submit"
           variant="contained"
           color="primary"
           className={classes.button}
         >
-          Sign up
+          Sign In
         </Button>
         <p>
-          Already Registered?{" "}
-          <Link to="/" style={{ color: "#FDBF5A", textDecoration: "none" }}>
-            Sign in
+          New user?{" "}
+          <Link
+            to="/signup"
+            style={{ color: "#FDBF5A", textDecoration: "none" }}
+          >
+            Check in
           </Link>
         </p>
       </Form>

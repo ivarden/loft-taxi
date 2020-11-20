@@ -4,15 +4,14 @@
   align-items: center;
   justify-content: center;
   background-color: #1c1a19;
-  min-height: 100vh;
 }
 .header.authorized {
-  flex: 1 1 auto;
-  min-height: 8vh;
-  height: 50px;
+  flex: 0 0 auto;
   justify-content: space-between;
+  height: 80px;
   padding: 0 3rem;
 }
+
 /* TABLET */
 @media (max-width: 768px) {
   .header.authorized {

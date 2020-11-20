@@ -1,17 +1,63 @@
 import React from "react";
 import "fontsource-roboto";
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import Main from "./components/Main";
 import Header from "./components/Header";
+import Map from "./pages/Map";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 function App() {
   const [authorized, setAuthorized] = React.useState(false);
+  const hadleAuthorized = () => {
+    setAuthorized((prev) => !prev);
+  };
+
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        light: "#ffb74d",
+        main: "#FDBF5A",
+        dark: "#FFA842",
+      },
+    },
+  });
 
   return (
-    <div className={authorized ? "App authorized" : "App"}>
-      <Header authorized={authorized} setAuthorized={setAuthorized}/>
-      <Main authorized={authorized} setAuthorized={setAuthorized}/>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className={authorized ? "App authorized" : "App"}>
+        <Header authorized={authorized} setAuthorized={hadleAuthorized} />
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <SignIn authorized={authorized} setAuthorized={setAuthorized} />
+            )}
+          />
+          <Route
+            path="/signup"
+            render={(props) => (
+              <SignUp authorized={authorized} setAuthorized={setAuthorized} />
+            )}
+          />
+          <Route
+            path="/map"
+            render={(props) => (
+              <Map authorized={authorized} setAuthorized={setAuthorized} />
+            )}
+          />
+          <Route
+            path="/profile"
+            render={(props) => (
+              <Profile authorized={authorized} setAuthorized={setAuthorized} />
+            )}
+          />
+        </Switch>
+      </div>
+    </ThemeProvider>
   );
 }
 
