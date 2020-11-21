@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({ authorized, setAuthorized }) {
+export default function SignIn({ authorized, setAuthorized, setPage }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -38,12 +38,12 @@ export default function SignIn({ authorized, setAuthorized }) {
     const email = e.target.email.value;
     const password = e.target.password.value;
     setAuthorized(!authorized);
-    history.push("/map");
+    // history.push("/map");
+    setPage("map");
     console.log(`\n email: ${email} \n password: ${password}`);
   };
 
   return (
-    <Router>
       <Box component="div" className={classes.root}>
         <Form onSubmit={onSubmit}>
           <Input label="Email" name="email" />
@@ -59,15 +59,16 @@ export default function SignIn({ authorized, setAuthorized }) {
           </Button>
           <p>
             New user?{" "}
-            <Link
-              to="/signup"
-              style={{ color: "#FDBF5A", textDecoration: "none" }}
+            <a href
+              onClick={() => {
+                setPage("signup");
+              }}
+              style={{ color: "#FDBF5A", textDecoration: "none", cursor:"pointer" }}
             >
               Check in
-            </Link>
+            </a>
           </p>
         </Form>
       </Box>
-    </Router>
   );
 }

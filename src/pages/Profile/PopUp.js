@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Popup() {
+export default function Popup({setPage}) {
   const classes = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
 
   return (
     <Box className={classes.root} component="div">
@@ -45,7 +45,8 @@ export default function Popup() {
         className={classes.button}
         color="primary"
         onClick={() => {
-          history.push("/map");
+          // history.push("/map");
+          setPage('map')
         }}
         variant="contained"
       >

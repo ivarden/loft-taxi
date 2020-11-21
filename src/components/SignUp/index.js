@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({ authorized, setAuthorized }) {
+export default function SignUp({ authorized, setAuthorized, setPage }) {
   const classes = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
   // const [signin, setSignin] = useState({
   //   email: null,
   //   name: null,
@@ -39,9 +39,10 @@ export default function SignUp({ authorized, setAuthorized }) {
     const email = e.target.email.value;
     const name = e.target.name.value;
     const password = e.target.password.value;
-    history.push("/map");
+    // history.push("/map");
 
     setAuthorized(!authorized);
+    setPage("map");
     console.log(`\n email: ${email} \n name: ${name} \n password: ${password}`);
     // console.log(signin);
   };
@@ -53,40 +54,48 @@ export default function SignUp({ authorized, setAuthorized }) {
   // };
 
   return (
-    <Router>
-      <Box component="div" className={classes.root}>
-        <Form onSubmit={onSubmit}>
-          <Input
-            // onChange={onChangeInput}
-            label="Email"
-            name="email"
-          />
-          <Input
-            // onChange={onChangeInput}
-            label="Your Name"
-            name="name"
-          />
-          <Input
-            // onChange={onChangeInput}
-            label="Password"
-            name="password"
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}
+    <Box component="div" className={classes.root}>
+      <Form onSubmit={onSubmit}>
+        <Input
+          // onChange={onChangeInput}
+          label="Email"
+          name="email"
+        />
+        <Input
+          // onChange={onChangeInput}
+          label="Your Name"
+          name="name"
+        />
+        <Input
+          // onChange={onChangeInput}
+          label="Password"
+          name="password"
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
+          Sign up
+        </Button>
+        <p>
+          Already Registered?{"  "}
+          <a
+            href
+            onClick={() => {
+              setPage("home");
+            }}
+            style={{
+              color: "#FDBF5A",
+              textDecoration: "none",
+              cursor: "pointer",
+            }}
           >
-            Sign up
-          </Button>
-          <p>
-            Already Registered?{" "}
-            <Link to="/" style={{ color: "#FDBF5A", textDecoration: "none" }}>
-              Sign in
-            </Link>
-          </p>
-        </Form>
-      </Box>
-    </Router>
+            Sign in
+          </a>
+        </p>
+      </Form>
+    </Box>
   );
 }
