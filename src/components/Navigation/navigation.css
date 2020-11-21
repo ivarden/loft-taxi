@@ -1,7 +1,7 @@
 .nav-wrap {
   display: flex;
 }
-.link-wrap a,
+.link-wrap span,
 .link-wrap.authorized {
   color: #fff;
   font-size: 1rem;
@@ -10,7 +10,7 @@
   text-transform: uppercase;
   text-decoration: none;
 }
-.link-wrap a:hover {
+.link-wrap span:hover {
   color: #fdbf5a;
 }
 .link-wrap .active {
@@ -18,14 +18,14 @@
 }
 
 @media (max-width: 540px) {
-  .link-wrap a,
+  .link-wrap span,
   .link-wrap.authorized {
     font-size: 1rem;
   }
 }
 /* PHONE */
 @media (max-width: 420px) {
-  .link-wrap a,
+  .link-wrap span,
   .link-wrap.authorized {
     margin-left: 0.5rem;
     font-size: 0.8rem;

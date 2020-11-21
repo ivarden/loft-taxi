@@ -12,21 +12,20 @@ export default function Navigation({ authorized, setAuthorized, setPage }) {
       {authorized && (
         <div className="nav-wrap authorized">
           <div className="link-wrap authorized">
-            <a href onClick={() => setPage("map")}>
+            <span onClick={() => setPage("map")}>
               Map
-            </a>
-            <a href onClick={() => setPage("profile")}>
+            </span>
+            <span onClick={() => setPage("profile")}>
               Profile
-            </a>
-            <a
-              href
+            </span>
+            <span
               onClick={() => {
                 setAuthorized();
                 setPage("home");
               }}
             >
               Log out
-            </a>
+            </span>
           </div>
         </div>
       )}

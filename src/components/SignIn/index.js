@@ -60,15 +60,14 @@ export default function SignIn({ authorized, setAuthorized, setPage }) {
         </Button>
         <p>
           New user?{" "}
-          <a
-            href
+          <span
             onClick={() => {
               setPage("signup");
             }}
             className={classes.etc}
           >
             Check in
-          </a>
+          </span>
         </p>
       </Form>
     </Box>
