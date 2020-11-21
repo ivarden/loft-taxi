@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, BrowserRouter as Router } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
@@ -53,38 +53,40 @@ export default function SignUp({ authorized, setAuthorized }) {
   // };
 
   return (
-    <Box component="div" className={classes.root}>
-      <Form onSubmit={onSubmit}>
-        <Input
-          // onChange={onChangeInput}
-          label="Email"
-          name="email"
-        />
-        <Input
-          // onChange={onChangeInput}
-          label="Your Name"
-          name="name"
-        />
-        <Input
-          // onChange={onChangeInput}
-          label="Password"
-          name="password"
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Sign up
-        </Button>
-        <p>
-          Already Registered?{" "}
-          <Link to="/" style={{ color: "#FDBF5A", textDecoration: "none" }}>
-            Sign in
-          </Link>
-        </p>
-      </Form>
-    </Box>
+    <Router>
+      <Box component="div" className={classes.root}>
+        <Form onSubmit={onSubmit}>
+          <Input
+            // onChange={onChangeInput}
+            label="Email"
+            name="email"
+          />
+          <Input
+            // onChange={onChangeInput}
+            label="Your Name"
+            name="name"
+          />
+          <Input
+            // onChange={onChangeInput}
+            label="Password"
+            name="password"
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
+            Sign up
+          </Button>
+          <p>
+            Already Registered?{" "}
+            <Link to="/" style={{ color: "#FDBF5A", textDecoration: "none" }}>
+              Sign in
+            </Link>
+          </p>
+        </Form>
+      </Box>
+    </Router>
   );
 }

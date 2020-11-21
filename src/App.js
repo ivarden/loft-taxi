@@ -1,6 +1,6 @@
 import React from "react";
 import "fontsource-roboto";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Map from "./pages/Map";
@@ -26,38 +26,43 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className={authorized ? "App authorized" : "App"}>
-        <Header authorized={authorized} setAuthorized={hadleAuthorized} />
-        <Switch>
-          <Route
-            path="/"
-            exact
-            render={(props) => (
-              <SignIn authorized={authorized} setAuthorized={setAuthorized} />
-            )}
-          />
-          <Route
-            path="/signup"
-            render={(props) => (
-              <SignUp authorized={authorized} setAuthorized={setAuthorized} />
-            )}
-          />
-          <Route
-            path="/map"
-            render={(props) => (
-              <Map authorized={authorized} setAuthorized={setAuthorized} />
-            )}
-          />
-          <Route
-            path="/profile"
-            render={(props) => (
-              <Profile authorized={authorized} setAuthorized={setAuthorized} />
-            )}
-          />
-        </Switch>
-      </div>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <div className={authorized ? "App authorized" : "App"}>
+          <Header authorized={authorized} setAuthorized={hadleAuthorized} />
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={(props) => (
+                <SignIn authorized={authorized} setAuthorized={setAuthorized} />
+              )}
+            />
+            <Route
+              path="/signup"
+              render={(props) => (
+                <SignUp authorized={authorized} setAuthorized={setAuthorized} />
+              )}
+            />
+            <Route
+              path="/map"
+              render={(props) => (
+                <Map authorized={authorized} setAuthorized={setAuthorized} />
+              )}
+            />
+            <Route
+              path="/profile"
+              render={(props) => (
+                <Profile
+                  authorized={authorized}
+                  setAuthorized={setAuthorized}
+                />
+              )}
+            />
+          </Switch>
+        </div>
+      </ThemeProvider>
+    </Router>
   );
 }
 
