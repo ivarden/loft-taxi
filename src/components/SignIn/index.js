@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginBottom: ".5rem",
   },
+  etc: { color: "#FDBF5A", textDecoration: "none", cursor: "pointer" },
 }));
 
 export default function SignIn({ authorized, setAuthorized, setPage }) {
@@ -44,31 +45,32 @@ export default function SignIn({ authorized, setAuthorized, setPage }) {
   };
 
   return (
-      <Box component="div" className={classes.root}>
-        <Form onSubmit={onSubmit}>
-          <Input label="Email" name="email" />
-          <Input label="Password" name="password" />
-          <p className={classes.textRight}>Forgot password?</p>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}
+    <Box component="div" className={classes.root}>
+      <Form onSubmit={onSubmit}>
+        <Input label="Email" name="email" />
+        <Input label="Password" name="password" />
+        <p className={classes.textRight}>Forgot password?</p>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
+          Sign In
+        </Button>
+        <p>
+          New user?{" "}
+          <a
+            href
+            onClick={() => {
+              setPage("signup");
+            }}
+            className={classes.etc}
           >
-            Sign In
-          </Button>
-          <p>
-            New user?{" "}
-            <a href
-              onClick={() => {
-                setPage("signup");
-              }}
-              style={{ color: "#FDBF5A", textDecoration: "none", cursor:"pointer" }}
-            >
-              Check in
-            </a>
-          </p>
-        </Form>
-      </Box>
+            Check in
+          </a>
+        </p>
+      </Form>
+    </Box>
   );
 }

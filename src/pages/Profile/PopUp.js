@@ -35,7 +35,7 @@ export default function Popup({setPage}) {
 
   return (
     <Box className={classes.root} component="div">
-      <Typography variant="h4" component="h3" style={{ fontFamily: "Roboto" }}>
+      <Typography variant="h4" component="h3">
         Profile
       </Typography>
       <Typography variant="body1">

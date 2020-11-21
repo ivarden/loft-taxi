@@ -32,7 +32,7 @@ export default function Popup({ handleOrder }) {
   const classes = useStyles();
   return (
     <Box className={classes.root} component="div">
-      <Typography variant="h4" component="h3" style={{ fontFamily: "Roboto" }}>
+      <Typography variant="h4" component="h3">
         Заказ размещен
       </Typography>
       <Typography variant="body1">

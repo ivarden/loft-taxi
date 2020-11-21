@@ -12,7 +12,7 @@ const Card = styled.div`
   border-radius: 10px;
   box-sizing: border-box;
   margin: 0 5px;
-  img {
+  & > img {
     width: 100px;
     align-self: center;
   }

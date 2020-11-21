@@ -23,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: "1rem 0 .5rem 0",
   },
+  etc: {
+    color: "#FDBF5A",
+    textDecoration: "none",
+    cursor: "pointer",
+  },
 }));
 
 export default function SignUp({ authorized, setAuthorized, setPage }) {
@@ -86,11 +91,7 @@ export default function SignUp({ authorized, setAuthorized, setPage }) {
             onClick={() => {
               setPage("home");
             }}
-            style={{
-              color: "#FDBF5A",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
+            className={classes.etc}
           >
             Sign in
           </a>
