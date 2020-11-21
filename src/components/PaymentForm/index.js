@@ -63,7 +63,14 @@ export default class PaymentForm extends React.Component {
   };
 
   render() {
-    const { name, number, expiry, cvc, focused, issuer, formData } = this.state;
+    const { name, 
+      number, 
+      expiry, 
+      cvc, 
+      focused, 
+      issuer, 
+      // formData 
+    } = this.state;
     return (
       <div
         id="PaymentForm"

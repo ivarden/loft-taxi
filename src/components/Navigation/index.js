@@ -3,10 +3,10 @@ import "./navigation.css";
 
 export default function Navigation({ authorized, setAuthorized, setPage }) {
   // const history = useHistory();
-  const handleLogOut = () => {
-    setAuthorized();
-    // history.push("/");
-  };
+  // const handleLogOut = () => {
+  //   setAuthorized();
+  //   history.push("/");
+  // };
   return (
     <>
       {authorized && (
