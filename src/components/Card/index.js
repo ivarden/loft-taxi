@@ -16,15 +16,21 @@ const Card = styled.div`
     width: 100px;
     align-self: center;
   }
+  @media (max-width: 420px) {
+    align-self: center;
+    margin-bottom: 10px;
+  }
 `;
 
-export default function Cards({card}) {
+export default function Cards({ card }) {
   return (
     <Card>
       <strong>{card.name}</strong>
       <span>Price</span>
-      <strong>{card.price} {card.currency}</strong>
-      <img src={card.picture} alt={card.name}/>
+      <strong>
+        {card.price} {card.currency}
+      </strong>
+      <img src={card.picture} alt={card.name} />
     </Card>
   );
 }

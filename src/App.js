@@ -15,50 +15,51 @@ export default class App extends Component {
   };
 
   setPage = (page) => {
-    this.setState((prev) => ({ ...prev, activePage: page }));
+    this.setState({ activePage: page });
   };
 
   render() {
     const { activePage, authorized } = this.state;
+    const { setAuthorized, setPage } = this;
+    const PAGES = ({ authorized, setAuthorized, setPage }) => ({
+      home: !authorized && (
+        <SignIn
+          authorized={authorized}
+          setAuthorized={setAuthorized}
+          setPage={setPage}
+        />
+      ),
+      signup: !authorized && (
+        <SignUp
+          authorized={authorized}
+          setAuthorized={setAuthorized}
+          setPage={setPage}
+        />
+      ),
+      map: authorized && (
+        <Map
+          authorized={authorized}
+          setAuthorized={setAuthorized}
+          setPage={setPage}
+        />
+      ),
+      profile: authorized && (
+        <Profile
+          authorized={authorized}
+          setAuthorized={setAuthorized}
+          setPage={setPage}
+        />
+      ),
+    });
 
     return (
       <div className={authorized ? "App authorized" : "App"}>
         <Header
           authorized={authorized}
-          setAuthorized={this.setAuthorized}
-          setPage={this.setPage}
+          setAuthorized={setAuthorized}
+          setPage={setPage}
         />
-        {
-          {
-            home: !authorized && (
-              <SignIn
-                authorized={authorized}
-                setAuthorized={this.setAuthorized}
-                setPage={this.setPage}
-              />
-            ),
-            signup: !authorized && (
-              <SignUp
-                authorized={authorized}
-                setAuthorized={this.setAuthorized}
-                setPage={this.setPage}
-              />
-            ),
-            map: authorized && (
-              <Map
-                authorized={authorized}
-                setAuthorized={this.setAuthorized}
-              />
-            ),
-            profile: authorized && (
-              <Profile
-                authorized={authorized}
-                setAuthorized={this.setAuthorized}
-                setPage={this.setPage}
-              />
-            ),
-          }[activePage]
-        }
+        {PAGES({ authorized, setAuthorized, setPage })[activePage]}
       </div>
     );
   }

@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
     width: "100%",
   },
+  "@media (max-width: 420px)": {
+    root: {
+      margin: 0,
+    },
+  },
 }));
 
 export default function Popup({ handleOrder }) {

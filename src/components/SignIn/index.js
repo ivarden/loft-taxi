@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   etc: { color: "#FDBF5A", textDecoration: "none", cursor: "pointer" },
 }));
 
-export default function SignIn({ authorized, setAuthorized, setPage }) {
+export default function SignIn({authorized, setAuthorized, setPage} ) {
   const classes = useStyles();
   // const history = useHistory();
 

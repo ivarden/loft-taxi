@@ -1,6 +1,8 @@
 import React from "react";
 import Cards from "react-credit-cards";
 import Input from "../Input";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import "react-credit-cards/es/styles-compiled.css";
 import Button from "@material-ui/core/Button";
 
@@ -11,7 +13,26 @@ import {
   // formatFormData,
 } from "./utils";
 
-export default class PaymentForm extends React.Component {
+const useStyles = (theme) => ({
+  root: {
+    display: "flex",
+    alignSelf: "center",
+    flexDirection: "column",
+    width: "300px",
+    backgroundColor: "white",
+    padding: "20px",
+    borderRadius: "10px",
+  },
+  form: { display: "flex", flexWrap: "wrap" },
+  title: { marginTop: "0", color: "darkgrey" },
+  number: { margin: "10px 0" },
+  name: { margin: "0" },
+  expiry: { margin: "10px 10px 0 0", flex: "1 1 45%" },
+  cvc: { margin: "10px 0", flex: "1 1 45%" },
+  button: { margin: "10px 0 0 0", width: "100%" },
+});
+
+class PaymentForm extends React.Component {
   state = {
     number: "",
     name: "",
@@ -63,40 +84,40 @@ export default class PaymentForm extends React.Component {
   };
 
   render() {
-    const { name, 
-      number, 
-      expiry, 
-      cvc, 
-      focused, 
-      issuer, 
-      // formData 
+    const {
+      name,
+      number,
+      expiry,
+      cvc,
+      focused,
+      issuer,
+      // formData
     } = this.state;
+    const {
+      handleCallback,
+      handleInputFocus,
+      handleInputChange,
+      handleSubmit,
+    } = this;
+    const { classes } = this.props;
+
     return (
-      <div
-        id="PaymentForm"
-        style={{
-          display: "flex",
-          alignSelf: "center",
-          flexDirection: "column",
-          width: "300px",
-          backgroundColor: "white",
-          padding: "20px",
-          borderRadius: "10px",
-        }}
-      >
-        <h3 style={{ marginTop: "0", color: "darkgrey" }}>Enter your card</h3>
+      <div id="PaymentForm" className={classes.root}>
+        <Typography variant="h5" component="h2">
+          Enter your card
+        </Typography>
         <Cards
           number={number}
           name={name}
           expiry={expiry}
           cvc={cvc}
           focused={focused}
-          callback={this.handleCallback}
+          callback={handleCallback}
         />
         <form
           ref={(c) => (this.form = c)}
-          onSubmit={this.handleSubmit}
-          style={{ display: "flex", flexWrap: "wrap" }}
+          onSubmit={handleSubmit}
+          className={classes.form}
         >
           <Input
             type="tel"
@@ -104,9 +125,9 @@ export default class PaymentForm extends React.Component {
             label="Card Number"
             pattern="[\d| ]{16,22}"
             required
-            onChange={this.handleInputChange}
-            onFocus={this.handleInputFocus}
-            style={{ margin: "10px 0" }}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            className={classes.number}
           />
 
           <Input
@@ -114,9 +135,9 @@ export default class PaymentForm extends React.Component {
             name="name"
             label="Name on card"
             required
-            onChange={this.handleInputChange}
-            onFocus={this.handleInputFocus}
-            style={{ margin: "0" }}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            className={classes.name}
           />
           <Input
             type="tel"
@@ -124,9 +145,9 @@ export default class PaymentForm extends React.Component {
             label="Expiry date"
             pattern="\d\d/\d\d"
             required
-            onChange={this.handleInputChange}
-            onFocus={this.handleInputFocus}
-            style={{ margin: "10px 10px 0 0", flex: "1 1 45%" }}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            className={classes.expiry}
           />
           <Input
             type="tel"
@@ -134,16 +155,16 @@ export default class PaymentForm extends React.Component {
             label="CVC/CVV"
             pattern="\d{3,4}"
             required
-            onChange={this.handleInputChange}
-            onFocus={this.handleInputFocus}
-            style={{ margin: "10px 0", flex: "1 1 45%", textAlign: "center" }}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            className={classes.cvc}
           />
           <input type="hidden" name="issuer" value={issuer} />
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            style={{ margin: "10px 0 0 0", width: "100%" }}
+            className={classes.button}
           >
             Save
           </Button>
@@ -159,3 +180,5 @@ export default class PaymentForm extends React.Component {
     );
   }
 }
+
+export default withStyles(useStyles, { withTheme: true })(PaymentForm);

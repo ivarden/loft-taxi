@@ -7,14 +7,14 @@ import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Cards from "../Cards";
 
-import InputAdornment from '@material-ui/core/InputAdornment';
-import NearMeIcon from '@material-ui/icons/NearMe';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import NearMeIcon from "@material-ui/icons/NearMe";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     maxWidth: "440px",
     width: "100%",
     backgroundColor: "white",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     boxSizing: "border-box",
     padding: "0 10px 10px 10px",
-    margin: "20px 0 0 20px"
+    margin: "20px 0 0 20px",
   },
   textField: {
     display: "flex",
@@ -31,7 +31,13 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: "1rem 0 .5rem 0",
   },
+  "@media (max-width: 420px)": {
+    root: {
+      margin: "0",
+    },
+  },
 }));
+
 const streets = [
   {
     value: "1",
@@ -136,7 +142,7 @@ export default function Profile({ handleOrder }) {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <NearMeIcon style={{color:'#FDBF5A'}}/>
+                <NearMeIcon color="primary" />
               </InputAdornment>
             ),
           }}
