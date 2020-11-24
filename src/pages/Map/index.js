@@ -3,6 +3,7 @@ import Order from "../../components/Order";
 import Main from "../../components/Main";
 import PopUp from "./PopUp";
 import Point from "./Point";
+import MapboxMap from "./MapboxMap";
 
 export default function Map({ authorized, setAuthorized }) {
   const [order, setOrder] = useState(true);
@@ -11,13 +12,16 @@ export default function Map({ authorized, setAuthorized }) {
   };
 
   return (
-    <Main authorized={authorized} setAuthorized={setAuthorized}>
-      {order ? (
-        <Order handleOrder={handleOrder} />
-      ) : (
-        <PopUp handleOrder={handleOrder} />
-      )}
-      <Point />
-    </Main>
+    <>
+      <Main authorized={authorized} setAuthorized={setAuthorized}>
+        {order ? (
+          <Order handleOrder={handleOrder} />
+        ) : (
+          <PopUp handleOrder={handleOrder} />
+        )}
+        <Point />
+      </Main>
+      <MapboxMap />
+    </>
   );
 }

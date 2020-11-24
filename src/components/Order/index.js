@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import styles from "../../helpers/useStyles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -11,32 +11,35 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   root: {
     display: "flex",
     alignSelf: "flex-start",
-    maxWidth: "440px",
+    maxWidth: "380px",
     width: "100%",
     backgroundColor: "white",
     alignItems: "center",
     borderRadius: "10px",
     boxSizing: "border-box",
-    padding: "0 10px 10px 10px",
+    padding: "15px 10px 15px 10px",
     margin: "20px 0 0 20px",
+    zIndex: "1000",
+    "@media (max-width: 420px)": {
+      margin: "0",
+    },
+    "& form": { margin: 0 },
   },
   textField: {
     display: "flex",
-    margin: "20px 0",
+    marginBottom: "15px",
   },
   button: {
-    margin: "1rem 0 .5rem 0",
-  },
-  "@media (max-width: 420px)": {
-    root: {
+    margin: "1rem 0 0 0",
+    "@media (max-width: 420px)": {
       margin: "0",
     },
   },
-}));
+});
 
 const streets = [
   {

@@ -1,9 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import styles from "../../helpers/useStyles";
 import logo_img from "./logo_img.svg";
 import logo_titile from "./logo_title.svg";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   logo_wrap: {
     display: "flex",
     flexDirection: "column",
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 0.6rem 0 0",
   },
   logo_title_authorized: { width: "80%" },
-}));
+});
 
 export default function Logo({ authorized }) {
   const classes = useStyles();

@@ -1,7 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import styles from "../../helpers/useStyles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   root: {},
   wrap: { display: "flex" },
   link_wrap: {
@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     textTransform: "uppercase",
     textDecoration: "none",
+    zIndex:'1000',
     "&:hover": {
       color: "#fdbf5a",
     },
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "0.8rem",
     },
   },
-}));
+});
 
 export default function Navigation({ authorized, setAuthorized, setPage }) {
   const classes = useStyles();

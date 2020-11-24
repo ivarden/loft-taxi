@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     padding: "20px",
     margin: "20px 0 0 20px",
+    zIndex:'1000'
   },
   textField: {
     display: "flex",

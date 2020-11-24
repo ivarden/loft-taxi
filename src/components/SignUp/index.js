@@ -1,12 +1,12 @@
 import React from "react";
 // import { useHistory, Link, BrowserRouter as Router } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import styles from "../../helpers/useStyles";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Input from "../Input";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     cursor: "pointer",
   },
-}));
+});
 
 export default function SignUp({ authorized, setAuthorized, setPage }) {
   const classes = useStyles();

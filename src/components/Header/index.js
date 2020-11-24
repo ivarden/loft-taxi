@@ -1,11 +1,10 @@
 import React from "react";
+import styles from "../../helpers/useStyles";
 
 import Logo from "../Logo";
-import Navigation from "../Navigation";
+import Navigation from "./Navigation";
 
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   header: {
     flex: "0 1 30%",
     display: "flex",
@@ -30,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     height: "80px",
     padding: "0 3rem",
     backgroundColor: "#1c1a19",
+    zIndex: "1000",
 
     "@media (max-width: 768px)": {
       minHeight: "10vh",
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 0.5rem",
     },
   },
-}));
+});
 
 export default function Header({ authorized, setAuthorized, setPage }) {
   const classes = useStyles();

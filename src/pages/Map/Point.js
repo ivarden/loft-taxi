@@ -15,6 +15,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     boxShadow: "0px 0px 30px 0px #000000 15%",
     cursor: "pointer",
+    zIndex:'1000',
+    '& img':{
+      width: "20px",
+      height: "20px"
+    }
   },
   "@media (max-width: 420px)": {
     root: {

@@ -11,6 +11,8 @@
     "@testing-library/user-event": "^12.1.10",
     "fontsource-roboto": "^3.0.3",
     "libphonenumber-js": "^1.9.4",
+    "mapbox-gl": "^1.13.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-credit-cards": "^0.8.3",
     "react-dom": "^17.0.1",
@@ -44,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/mapbox-gl": "^1.12.8"
   }
 }

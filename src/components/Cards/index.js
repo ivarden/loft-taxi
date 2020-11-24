@@ -1,9 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import car_standart from "./car_standart.jpg";
 import car_business from "./car_business.jpg";
 import car_premium from "./car_premium.jpg";
-import Card from "../Card";
+import Card from "./Card";
+import styles from "../../helpers/useStyles";
 
 const car_list = [
   { name: "Standart", price: 50, currency: "$", picture: car_standart },
@@ -11,7 +11,7 @@ const car_list = [
   { name: "Premium", price: 150, currency: "$", picture: car_premium },
 ];
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   "@global": {
     body: { padding: 0 },
   },
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     boxSizing: "border-box",
     justifyContent: "space-around",
-    padding: "10px 0 0 0",
+    padding: "0 0 0 0",
   },
   "@media (max-width: 420px)": {
     root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
     },
   },
-}));
+});
 
 export default function Cards() {
   const classes = useStyles();
