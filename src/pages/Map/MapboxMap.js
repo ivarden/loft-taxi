@@ -2,8 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import mapboxgl from "mapbox-gl";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoidmFyZGVuYWRhbXMiLCJhIjoiY2todjkwMG43MWZhOTJxbnBsbXlyN2d4dSJ9.5CwSSY90nXLRcD-YGXrVwQ";
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const useStyles = (theme) => ({
   root: {
@@ -12,6 +11,7 @@ const useStyles = (theme) => ({
     right: 0,
     left: 0,
     bottom: 0,
+    zIndex: 1,
     "@global": {
       ".mapboxgl-ctrl-bottom-right": {
         display: "none",
@@ -34,6 +34,7 @@ class MapboxMap extends React.Component {
   }
 
   componentDidMount() {
+    console.log(process.env.REACT_APP_MAP_TOKEN)
     const map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v11",
@@ -53,9 +54,9 @@ class MapboxMap extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <>
+      <div>
         <div ref={(el) => (this.mapContainer = el)} className={classes.root} />
-      </>
+      </div>
     );
   }
 }

@@ -11,7 +11,6 @@ const useStyles = styles({
     cursor: "pointer",
     textTransform: "uppercase",
     textDecoration: "none",
-    zIndex:'1000',
     "&:hover": {
       color: "#fdbf5a",
     },

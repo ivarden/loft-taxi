@@ -14,6 +14,7 @@ export default function Map({ authorized, setAuthorized }) {
   return (
     <>
       <Main authorized={authorized} setAuthorized={setAuthorized}>
+        <MapboxMap />
         {order ? (
           <Order handleOrder={handleOrder} />
         ) : (
@@ -21,7 +22,6 @@ export default function Map({ authorized, setAuthorized }) {
         )}
         <Point />
       </Main>
-      <MapboxMap />
     </>
   );
 }

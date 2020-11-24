@@ -32,6 +32,7 @@ const useStyles = styles({
   textField: {
     display: "flex",
     marginBottom: "15px",
+    backgroundColor: "white",
   },
   button: {
     margin: "1rem 0 0 0",
