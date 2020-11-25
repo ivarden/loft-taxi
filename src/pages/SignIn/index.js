@@ -2,10 +2,10 @@ import React from "react";
 import Main from "../../components/Main";
 import Signin from "../../components/SignIn";
 
-export default function SignIn({ authorized, setAuthorized, setPage }) {
+export default function SignIn() {
   return (
-    <Main authorized={authorized} setAuthorized={setAuthorized}>
-      <Signin authorized={authorized} setAuthorized={setAuthorized} setPage={setPage} />
+    <Main>
+      <Signin />
     </Main>
   );
 }

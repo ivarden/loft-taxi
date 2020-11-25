@@ -6,6 +6,7 @@ import Map from "./pages/Map";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
+import { AuthContext } from "./auth-context";
 
 const useStyles = (theme) => ({
   "@global": {
@@ -55,45 +56,21 @@ class App extends Component {
     const { classes } = this.props;
     const { activePage, authorized } = this.state;
     const { setAuthorized, setPage } = this;
-    const PAGES = ({ authorized, setAuthorized, setPage }) => ({
-      home: !authorized && (
-        <SignIn
-          authorized={authorized}
-          setAuthorized={setAuthorized}
-          setPage={setPage}
-        />
-      ),
-      signup: !authorized && (
-        <SignUp
-          authorized={authorized}
-          setAuthorized={setAuthorized}
-          setPage={setPage}
-        />
-      ),
-      map: authorized && (
-        <Map
-          authorized={authorized}
-          setAuthorized={setAuthorized}
-          setPage={setPage}
-        />
-      ),
-      profile: authorized && (
-        <Profile
-          authorized={authorized}
-          setAuthorized={setAuthorized}
-          setPage={setPage}
-        />
-      ),
+    const PAGES = () => ({
+      home: !authorized && <SignIn />,
+      signup: !authorized && <SignUp />,
+      map: authorized && <Map />,
+      profile: authorized && <Profile />,
     });
 
     return (
       <div className={authorized ? classes.authorized : classes.root}>
-        <Header
-          authorized={authorized}
-          setAuthorized={setAuthorized}
-          setPage={setPage}
-        />
-        {PAGES({ authorized, setAuthorized, setPage })[activePage]}
+        <AuthContext.Provider
+          value={{ authorized, setAuthorized, activePage, setPage }}
+        >
+          <Header />
+          {PAGES()[activePage]}
+        </AuthContext.Provider>
       </div>
     );
   }

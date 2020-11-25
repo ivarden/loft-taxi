@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../../helpers/useStyles";
 import logo_img from "./logo_img.svg";
 import logo_titile from "./logo_title.svg";
+import { AuthContext } from "../../auth-context";
 
 const useStyles = styles({
   logo_wrap: {
@@ -60,8 +61,9 @@ const useStyles = styles({
   logo_title_authorized: { width: "80%" },
 });
 
-export default function Logo({ authorized }) {
+export default function Logo() {
   const classes = useStyles();
+  const { authorized } = useContext(AuthContext);
 
   return (
     <div

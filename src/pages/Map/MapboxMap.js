@@ -34,7 +34,6 @@ class MapboxMap extends React.Component {
   }
 
   componentDidMount() {
-    console.log(process.env.REACT_APP_MAP_TOKEN)
     const map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v11",

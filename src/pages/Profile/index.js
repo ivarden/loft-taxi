@@ -10,11 +10,11 @@ export default function Profiles({ authorized, setAuthorized, setPage }) {
   };
 
   return (
-    <Main authorized={authorized} setAuthorized={setAuthorized} style={{justifyContent:"center"}}>
+    <Main style={{ justifyContent: "center" }}>
       {payment ? (
-        <PaymentForm handlePayment={handlePayment} setPage={setPage}/>
+        <PaymentForm handlePayment={handlePayment} setPage={setPage} />
       ) : (
-        <PopUp handlePayment={handlePayment} setPage={setPage}/>
+        <PopUp handlePayment={handlePayment} setPage={setPage} />
       )}
     </Main>
   );

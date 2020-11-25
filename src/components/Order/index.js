@@ -5,7 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
-import Cards from "../Cards";
+import car_standart from "./car_standart.jpg";
+import car_business from "./car_business.jpg";
+import car_premium from "./car_premium.jpg";
 
 import InputAdornment from "@material-ui/core/InputAdornment";
 import NearMeIcon from "@material-ui/icons/NearMe";
@@ -36,12 +38,59 @@ const useStyles = styles({
   },
   button: {
     margin: "1rem 0 0 0",
+    "@media (max-width: 380px)": {
+      marginTopo: "10px",
+    },
+  },
+  "@global": {
+    body: { padding: 0 },
+  },
+  cards: {
+    display: "flex",
+    backgroundColor: "white",
+    boxSizing: "border-box",
+    justifyContent: "space-around",
+    padding: "0 0 0 0",
+    "@media (max-width: 380px)": {
+      flexDirection: "column",
+      alignItems: "center",
+    },
+  },
+  card: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "100px",
+    height: "140px",
+    backgroundColor: "white",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+    borderRadius: "10px",
+    boxSizing: "border-box",
+    // margin: "5px",
+    cursor: "pointer",
+    "& > img": {
+      width: "90px",
+      alignSelf: "center",
+    },
     "@media (max-width: 420px)": {
-      margin: "0",
+      alignSelf: "center",
+      // marginBottom: "5px",
+    },
+  },
+  menu_item: {
+    borderRadius: "10px",
+    padding: "3px",
+    "&:hover": {
+      backgroundColor: "rgba(251, 199, 13, .8)",
     },
   },
 });
-
+const car_list = [
+  { name: "Standart", price: 50, currency: "$", picture: car_standart },
+  { name: "Busines", price: 100, currency: "$", picture: car_business },
+  { name: "Premium", price: 150, currency: "$", picture: car_premium },
+];
 const streets = [
   {
     value: "1",
@@ -102,7 +151,11 @@ export default function Profile({ handleOrder }) {
   //   console.log(name, value)
   //   setSignin((state) => ({ ...state, [name]: value }));
   // };
-  const [street, setStreet] = React.useState({ from: "1", to: "2" });
+  const [street, setStreet] = React.useState({
+    from: "1",
+    to: "2",
+    car: 50,
+  });
   const handleChange = (event) => {
     setStreet((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
@@ -115,6 +168,7 @@ export default function Profile({ handleOrder }) {
           id="from"
           name="from"
           select
+          size="small"
           label="From"
           value={street.from}
           onChange={handleChange}
@@ -139,6 +193,7 @@ export default function Profile({ handleOrder }) {
           id="to"
           name="to"
           select
+          size="small"
           label="Choose destination"
           value={street.to}
           onChange={handleChange}
@@ -157,8 +212,44 @@ export default function Profile({ handleOrder }) {
             </MenuItem>
           ))}
         </TextField>
-
-        <Cards />
+        {/* 
+        <TextField
+          className={classes.textField}
+          id="car"
+          name="car"
+          value={street.car}
+          onChange={handleChange}
+          variant="standard"
+          size="small"
+          InputProps={{
+            startAdornment: (
+              <div className={classes.card} key={car_list[0].name}>
+                <strong>{car_list[0].name}</strong>
+                <span>Price</span>
+                <strong>
+                  {car_list[0].price} {car_list[0].currency}
+                </strong>
+                <img src={car_list[0].picture} alt={car_list[0].name} />
+              </div>
+            ),
+          }}
+        /> */}
+        {/* <TextField> */}
+        <div className={classes.cards}>
+          {car_list.map((card) => (
+            <MenuItem name='car' value={card.price} key={card.name} className={classes.menu_item}>
+              <div className={classes.card}>
+                <strong>{card.name}</strong>
+                <span>Price</span>
+                <strong>
+                  {card.price} {card.currency}
+                </strong>
+                <img src={card.picture} alt={card.name} />
+              </div>
+            </MenuItem>
+          ))}
+        </div>
+        {/* </TextField> */}
 
         <Button
           type="submit"

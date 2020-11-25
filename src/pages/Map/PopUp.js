@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     padding: "20px",
     margin: "20px 0 0 20px",
-    zIndex:'1000'
+    zIndex: "1000",
   },
   textField: {
     display: "flex",
@@ -38,11 +38,11 @@ export default function Popup({ handleOrder }) {
   const classes = useStyles();
   return (
     <Box className={classes.root} component="div">
-      <Typography variant="h4" component="h3">
-        Заказ размещен
+      <Typography variant="h5" component="h3">
+        The order has been placed.
       </Typography>
       <Typography variant="body1">
-        Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.
+        Your taxi is already on its way to you. Will arrive in about 10 minutes.
       </Typography>
       <Button
         className={classes.button}

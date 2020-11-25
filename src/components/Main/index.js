@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../../helpers/useStyles";
+import { AuthContext } from "../../auth-context";
 import map from "./map.jpg";
 
 const useStyles = styles({
@@ -32,8 +33,9 @@ const useStyles = styles({
   },
 });
 
-export default function Main({ authorized, style, children }) {
+export default function Main({ style, children }) {
   const classes = useStyles();
+  const { authorized } = React.useContext(AuthContext);
   return (
     <main
       style={style}

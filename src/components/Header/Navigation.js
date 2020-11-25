@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../../helpers/useStyles";
+import { AuthContext } from "../../auth-context";
 
 const useStyles = styles({
   root: {},
@@ -37,8 +38,9 @@ const useStyles = styles({
   },
 });
 
-export default function Navigation({ authorized, setAuthorized, setPage }) {
+export default function Navigation() {
   const classes = useStyles();
+  const { authorized, setAuthorized, setPage } = useContext(AuthContext);
   // const history = useHistory();
   // const handleLogOut = () => {
   //   setAuthorized();
@@ -48,24 +50,24 @@ export default function Navigation({ authorized, setAuthorized, setPage }) {
     <>
       {authorized && (
         <div className={classes.wrap}>
-            <span onClick={() => setPage("map")} className={classes.link_wrap}>
-              Map
-            </span>
-            <span
-              onClick={() => setPage("profile")}
-              className={classes.link_wrap}
-            >
-              Profile
-            </span>
-            <span
-              onClick={() => {
-                setAuthorized();
-                setPage("home");
-              }}
-              className={classes.link_wrap}
-            >
-              Log out
-            </span>
+          <span onClick={() => setPage("map")} className={classes.link_wrap}>
+            Map
+          </span>
+          <span
+            onClick={() => setPage("profile")}
+            className={classes.link_wrap}
+          >
+            Profile
+          </span>
+          <span
+            onClick={() => {
+              setAuthorized();
+              setPage("home");
+            }}
+            className={classes.link_wrap}
+          >
+            Log out
+          </span>
         </div>
       )}
     </>

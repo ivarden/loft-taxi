@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { useHistory, Link, BrowserRouter as Router } from "react-router-dom";
 import styles from "../../helpers/useStyles";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Input from "../Input";
+import { AuthContext } from "../../auth-context";
 
 const useStyles = styles({
   root: {
@@ -30,8 +31,9 @@ const useStyles = styles({
   etc: { color: "#FDBF5A", textDecoration: "none", cursor: "pointer" },
 });
 
-export default function SignIn({ authorized, setAuthorized, setPage }) {
+export default function SignIn() {
   const classes = useStyles();
+  const { authorized, setAuthorized, setPage } = useContext(AuthContext);
   // const history = useHistory();
 
   const onSubmit = (e) => {

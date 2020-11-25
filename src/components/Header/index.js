@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../../helpers/useStyles";
-
+import { AuthContext } from "../../auth-context";
 import Logo from "../Logo";
 import Navigation from "./Navigation";
 
@@ -44,16 +44,13 @@ const useStyles = styles({
   },
 });
 
-export default function Header({ authorized, setAuthorized, setPage }) {
+export default function Header() {
   const classes = useStyles();
+  const { authorized } = useContext(AuthContext);
   return (
     <header className={authorized ? classes.header_authorized : classes.header}>
-      <Logo authorized={authorized} />
-      <Navigation
-        authorized={authorized}
-        setAuthorized={setAuthorized}
-        setPage={setPage}
-      />
+      <Logo />
+      <Navigation />
     </header>
   );
 }
