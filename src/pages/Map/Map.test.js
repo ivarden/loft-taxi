@@ -10,5 +10,20 @@ describe("Sign in page", () => {
     expect(container.innerHTML).toMatch("Choose destination");
     expect(container.innerHTML).toMatch("Order");
   });
-
 });
+
+// describe("your test suite", () => {
+//   window.URL.createObjectURL = jest.fn();
+
+//   afterEach(() => {
+//     window.URL.createObjectURL.mockReset();
+//   });
+
+//   it("your test case", () => {
+//     expect(true).toBeTruthy();
+//   });
+// });
+
+// window.URL.createObjectURL = function() {};
+
+// global.URL.createObjectURL = jest.fn();
