@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+import Button from "../../components/Button";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -45,13 +45,10 @@ export default function Popup({ handleOrder }) {
         Your taxi is already on its way to you. Will arrive in about 10 minutes.
       </Typography>
       <Button
+        title="Make a new order"
         className={classes.button}
-        color="primary"
         onClick={handleOrder}
-        variant="contained"
-      >
-        Make a new order
-      </Button>
+      />
     </Box>
   );
 }

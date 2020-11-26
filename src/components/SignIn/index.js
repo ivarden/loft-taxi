@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 // import { useHistory, Link, BrowserRouter as Router } from "react-router-dom";
 import styles from "../../helpers/useStyles";
-import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Input from "../Input";
+import Button from "../Button";
 import { AuthContext } from "../../auth-context";
 
 const useStyles = styles({
@@ -52,14 +52,7 @@ export default function SignIn() {
         <Input label="Email" name="email" />
         <Input label="Password" name="password" />
         <p className={classes.textRight}>Forgot password?</p>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Sign In
-        </Button>
+        <Button title="Sign In" className={classes.button} />
         <p>
           New user?{" "}
           <span

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 // import { useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import Button from "../../components/Button";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -44,16 +44,13 @@ export default function Popup() {
         Billing information updated. Now you can order a taxi.
       </Typography>
       <Button
+        title="Go to the map"
         className={classes.button}
-        color="primary"
         onClick={() => {
           // history.push("/map");
           setPage("map");
         }}
-        variant="contained"
-      >
-        Save
-      </Button>
+      />
     </Box>
   );
 }

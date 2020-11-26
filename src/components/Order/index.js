@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import Form from "../Form";
 // import { Controller } from "react-hook-form";
 
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import Button from "../Button";
 import { useStyles } from "./styles";
 
 import { streets, streets2, car_list } from "./data";
@@ -122,14 +122,7 @@ export default function Profile({ handleOrder }) {
           ))}
         </div>
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Order
-        </Button>
+        <Button title="Order" className={classes.button} />
       </Form>
     </Box>
   );
