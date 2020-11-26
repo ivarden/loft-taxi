@@ -1,132 +1,18 @@
 import React from "react";
-import styles from "../../helpers/useStyles";
+import PropTypes from "prop-types";
+import Form from "../Form";
+// import { Controller } from "react-hook-form";
+
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
-import Form from "../Form";
-import car_standart from "./car_standart.jpg";
-import car_business from "./car_business.jpg";
-import car_premium from "./car_premium.jpg";
-
 import InputAdornment from "@material-ui/core/InputAdornment";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import { useStyles } from "./styles";
 
-const useStyles = styles({
-  root: {
-    display: "flex",
-    alignSelf: "flex-start",
-    maxWidth: "380px",
-    width: "100%",
-    backgroundColor: "white",
-    alignItems: "center",
-    borderRadius: "10px",
-    boxSizing: "border-box",
-    padding: "15px 10px 15px 10px",
-    margin: "20px 0 0 20px",
-    zIndex: "1000",
-    "@media (max-width: 420px)": {
-      margin: "0",
-    },
-    "& form": { margin: 0 },
-  },
-  textField: {
-    display: "flex",
-    marginBottom: "15px",
-    backgroundColor: "white",
-  },
-  button: {
-    margin: "1rem 0 0 0",
-    "@media (max-width: 380px)": {
-      marginTopo: "10px",
-    },
-  },
-  "@global": {
-    body: { padding: 0 },
-  },
-  cards: {
-    display: "flex",
-    backgroundColor: "white",
-    boxSizing: "border-box",
-    justifyContent: "space-around",
-    padding: "0 0 0 0",
-    "@media (max-width: 380px)": {
-      flexDirection: "column",
-      alignItems: "center",
-    },
-  },
-  card: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "center",
-    width: "100px",
-    height: "140px",
-    backgroundColor: "white",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-    borderRadius: "10px",
-    boxSizing: "border-box",
-    // margin: "5px",
-    cursor: "pointer",
-    "& > img": {
-      width: "90px",
-      alignSelf: "center",
-    },
-    "@media (max-width: 420px)": {
-      alignSelf: "center",
-      // marginBottom: "5px",
-    },
-  },
-  menu_item: {
-    borderRadius: "10px",
-    padding: "3px",
-    "&:hover": {
-      backgroundColor: "rgba(251, 199, 13, .8)",
-    },
-  },
-});
-const car_list = [
-  { name: "Standart", price: 50, currency: "$", picture: car_standart },
-  { name: "Busines", price: 100, currency: "$", picture: car_business },
-  { name: "Premium", price: 150, currency: "$", picture: car_premium },
-];
-const streets = [
-  {
-    value: "1",
-    label: "Sreet 1",
-  },
-  {
-    value: "2",
-    label: "Sreet 2",
-  },
-  {
-    value: "3",
-    label: "Sreet 3",
-  },
-  {
-    value: "4",
-    label: "Sreet 4",
-  },
-];
-const streets2 = [
-  {
-    value: "1",
-    label: "Sreet 1",
-  },
-  {
-    value: "2",
-    label: "Sreet 2",
-  },
-  {
-    value: "3",
-    label: "Sreet 3",
-  },
-  {
-    value: "4",
-    label: "Sreet 4",
-  },
-];
+import { streets, streets2, car_list } from "./data";
 
 export default function Profile({ handleOrder }) {
   const classes = useStyles();
@@ -139,9 +25,12 @@ export default function Profile({ handleOrder }) {
     e.preventDefault();
     const from = e.target.from.value;
     const to = e.target.to.value;
+
+    // const car = e.target.car.value;
     handleOrder();
 
-    console.log(`\n from: ${from} \n to: ${to}`);
+    console.log(`\n from: ${from} \n to: ${to} \n`);
+    console.log(street);
     return null;
     // console.log(signin);
   };
@@ -212,32 +101,15 @@ export default function Profile({ handleOrder }) {
             </MenuItem>
           ))}
         </TextField>
-        {/* 
-        <TextField
-          className={classes.textField}
-          id="car"
-          name="car"
-          value={street.car}
-          onChange={handleChange}
-          variant="standard"
-          size="small"
-          InputProps={{
-            startAdornment: (
-              <div className={classes.card} key={car_list[0].name}>
-                <strong>{car_list[0].name}</strong>
-                <span>Price</span>
-                <strong>
-                  {car_list[0].price} {car_list[0].currency}
-                </strong>
-                <img src={car_list[0].picture} alt={car_list[0].name} />
-              </div>
-            ),
-          }}
-        /> */}
-        {/* <TextField> */}
-        <div className={classes.cards}>
+
+        <div className={classes.cards} onClick={(e) => console.log(e.target)}>
           {car_list.map((card) => (
-            <MenuItem name='car' value={card.price} key={card.name} className={classes.menu_item}>
+            <MenuItem
+              name="car"
+              value={card.price}
+              key={card.name}
+              className={classes.menu_item}
+            >
               <div className={classes.card}>
                 <strong>{card.name}</strong>
                 <span>Price</span>
@@ -249,7 +121,6 @@ export default function Profile({ handleOrder }) {
             </MenuItem>
           ))}
         </div>
-        {/* </TextField> */}
 
         <Button
           type="submit"
@@ -263,3 +134,7 @@ export default function Profile({ handleOrder }) {
     </Box>
   );
 }
+
+Profile.propTypes = {
+  handleOrder: PropTypes.func.isRequired,
+};

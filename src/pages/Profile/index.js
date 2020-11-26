@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Main from "../../components/Main";
 import PopUp from "./PopUp";
 import PaymentForm from "../../components/PaymentForm";
 
-export default function Profiles({ authorized, setAuthorized, setPage }) {
+export default function Profiles() {
   const [payment, setPayment] = useState(true);
   const handlePayment = () => {
     setPayment((prev) => !prev);
@@ -12,9 +12,9 @@ export default function Profiles({ authorized, setAuthorized, setPage }) {
   return (
     <Main style={{ justifyContent: "center" }}>
       {payment ? (
-        <PaymentForm handlePayment={handlePayment} setPage={setPage} />
+        <PaymentForm handlePayment={handlePayment} />
       ) : (
-        <PopUp handlePayment={handlePayment} setPage={setPage} />
+        <PopUp handlePayment={handlePayment} />
       )}
     </Main>
   );
