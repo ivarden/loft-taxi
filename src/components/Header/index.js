@@ -21,7 +21,7 @@ const useStyles = styles({
       padding: "0 0.5rem",
     },
   },
-  header_authorized: {
+  header_isLoggedIn: {
     flex: "0 0 auto",
     display: "flex",
     alignItems: "center",
@@ -46,9 +46,9 @@ const useStyles = styles({
 
 export default function Header() {
   const classes = useStyles();
-  const { authorized } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
   return (
-    <header className={authorized ? classes.header_authorized : classes.header}>
+    <header className={isLoggedIn ? classes.header_isLoggedIn : classes.header}>
       <Logo />
       <Navigation />
     </header>

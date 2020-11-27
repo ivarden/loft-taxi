@@ -5,11 +5,11 @@ import { useStyles } from "./styles";
 
 export default function Main({ style, children }) {
   const classes = useStyles();
-  const { authorized } = React.useContext(AuthContext);
+  const { isLoggedIn } = React.useContext(AuthContext);
   return (
     <main
       style={style}
-      className={authorized ? classes.authorized : classes.root}
+      className={isLoggedIn ? classes.isLoggedIn : classes.root}
     >
       {children}
     </main>

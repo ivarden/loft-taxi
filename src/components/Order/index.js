@@ -25,14 +25,10 @@ export default function Profile({ handleOrder }) {
     e.preventDefault();
     const from = e.target.from.value;
     const to = e.target.to.value;
-
-    // const car = e.target.car.value;
     handleOrder();
-
     console.log(`\n from: ${from} \n to: ${to} \n`);
     console.log(street);
     return null;
-    // console.log(signin);
   };
   // const onChangeInput = (e) => {
   //   const name = e.target.name;

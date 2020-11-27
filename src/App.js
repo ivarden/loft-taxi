@@ -31,7 +31,7 @@ const useStyles = (theme) => ({
       flexDirection: "column",
     },
   },
-  authorized: {
+  isLoggedIn: {
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
@@ -44,7 +44,7 @@ const useStyles = (theme) => ({
 class App extends Component {
   state = {
     activePage: "home",
-    authorized: false,
+    isLoggedIn: false,
     user: { email: null, password: null },
     new_user: { email: null, name: null, password: null },
   };
@@ -56,7 +56,7 @@ class App extends Component {
     this.setState((prev) => ({
       ...prev,
       user: user,
-      authorized: true,
+      isLoggedIn: true,
       activePage: "map",
     }));
   };
@@ -67,7 +67,7 @@ class App extends Component {
     this.setState((prev) => ({
       ...prev,
       new_user: new_user,
-      authorized: true,
+      isLoggedIn: true,
       activePage: "map",
     }));
   };
@@ -76,7 +76,7 @@ class App extends Component {
     this.setState((prev) => ({
       ...prev,
       user: null,
-      authorized: false,
+      isLoggedIn: false,
       activePage: "home",
     }));
   };
@@ -87,20 +87,20 @@ class App extends Component {
 
   render() {
     const { classes } = this.props;
-    const { activePage, authorized } = this.state;
+    const { activePage, isLoggedIn } = this.state;
     const { setPage, login, logout, signin } = this;
     const PAGES = () => ({
-      home: !authorized && <SignIn />,
-      signup: !authorized && <SignUp />,
-      map: authorized && <Map />,
-      profile: authorized && <Profile />,
+      home: !isLoggedIn && <SignIn />,
+      signup: !isLoggedIn && <SignUp />,
+      map: isLoggedIn && <Map />,
+      profile: isLoggedIn && <Profile />,
     });
 
     return (
-      <div className={authorized ? classes.authorized : classes.root}>
+      <div className={isLoggedIn ? classes.isLoggedIn : classes.root}>
         <AuthContext.Provider
           value={{
-            authorized,
+            isLoggedIn,
             activePage,
             setPage,
             login,

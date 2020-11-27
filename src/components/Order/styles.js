@@ -54,7 +54,6 @@ export const useStyles = styles({
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
     borderRadius: "10px",
     boxSizing: "border-box",
-    // margin: "5px",
     cursor: "pointer",
     "& > img": {
       width: "90px",
@@ -62,7 +61,6 @@ export const useStyles = styles({
     },
     "@media (max-width: 420px)": {
       alignSelf: "center",
-      // marginBottom: "5px",
     },
   },
   menu_item: {

@@ -17,7 +17,7 @@ const useStyles = styles({
       maxWidth: "40%",
     },
   },
-  logo_wrap_authorized: {
+  logo_wrap_isLoggedIn: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -54,30 +54,30 @@ const useStyles = styles({
     },
   },
 
-  logo_img_authorized: {
+  logo_img_isLoggedIn: {
     width: "20%",
     margin: "0 0.6rem 0 0",
   },
-  logo_title_authorized: { width: "80%" },
+  logo_title_isLoggedIn: { width: "80%" },
 });
 
 export default function Logo() {
   const classes = useStyles();
-  const { authorized } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <div
-      className={authorized ? classes.logo_wrap_authorized : classes.logo_wrap}
+      className={isLoggedIn ? classes.logo_wrap_isLoggedIn : classes.logo_wrap}
     >
       <img
         src={logo_img}
-        className={authorized ? classes.logo_img_authorized : classes.logo_img}
+        className={isLoggedIn ? classes.logo_img_isLoggedIn : classes.logo_img}
         alt="logo img"
       />
       <img
         src={logo_titile}
         className={
-          authorized ? classes.logo_title_authorized : classes.logo_title
+          isLoggedIn ? classes.logo_title_isLoggedIn : classes.logo_title
         }
         alt="logo title"
       />

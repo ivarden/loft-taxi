@@ -40,17 +40,17 @@ const useStyles = styles({
 
 export default function Navigation() {
   const classes = useStyles();
-  const { authorized, setPage, logout } = useContext(
+  const { isLoggedIn, setPage, logout } = useContext(
     AuthContext
   );
   // const history = useHistory();
   // const handleLogOut = () => {
-  //   setAuthorized();
+  //   setisLoggedIn();
   //   history.push("/");
   // };
   return (
     <>
-      {authorized && (
+      {isLoggedIn && (
         <div className={classes.wrap}>
           <span onClick={() => setPage("map")} className={classes.link_wrap}>
             Map
