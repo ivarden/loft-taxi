@@ -18,5 +18,5 @@ export default function Main({ style, children }) {
 
 Main.propTypes = {
   style: PropTypes.object,
-  children: PropTypes.element,
+  children: PropTypes.any,
 };

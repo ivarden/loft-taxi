@@ -33,17 +33,17 @@ const useStyles = styles({
 
 export default function SignIn() {
   const classes = useStyles();
-  const { authorized, setAuthorized, setPage } = useContext(AuthContext);
+  const { setPage, login } = useContext(AuthContext);
   // const history = useHistory();
 
   const onSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    setAuthorized(!authorized);
     // history.push("/map");
-    setPage("map");
-    console.log(`\n email: ${email} \n password: ${password}`);
+    // setPage("map");
+    login(e, { email, password });
+    // console.log(`\n email: ${email} \n password: ${password}`);
   };
 
   return (

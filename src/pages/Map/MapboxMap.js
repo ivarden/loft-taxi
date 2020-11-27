@@ -2,8 +2,6 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import mapboxgl from "mapbox-gl";
 
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-
 const useStyles = (theme) => ({
   root: {
     position: "absolute",
@@ -34,20 +32,21 @@ class MapboxMap extends React.Component {
   }
 
   componentDidMount() {
-    const map = new mapboxgl.Map({
+    mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+    new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom,
     });
 
-    map.on("move", () => {
-      this.setState({
-        lng: map.getCenter().lng.toFixed(4),
-        lat: map.getCenter().lat.toFixed(4),
-        zoom: map.getZoom().toFixed(2),
-      });
-    });
+    // map.on("move", () => {
+    //   this.setState({
+    //     lng: map.getCenter().lng.toFixed(4),
+    //     lat: map.getCenter().lat.toFixed(4),
+    //     zoom: map.getZoom().toFixed(2),
+    //   });
+    // });
   }
 
   render() {

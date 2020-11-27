@@ -33,7 +33,9 @@ const useStyles = styles({
 
 export default function SignUp() {
   const classes = useStyles();
-  const { authorized, setAuthorized, setPage } = useContext(AuthContext);
+  const {setPage, signin } = useContext(
+    AuthContext
+  );
   // const history = useHistory();
   // const [signin, setSignin] = useState({
   //   email: null,
@@ -47,11 +49,8 @@ export default function SignUp() {
     const name = e.target.name.value;
     const password = e.target.password.value;
     // history.push("/map");
-
-    setAuthorized(!authorized);
-    setPage("map");
+    signin(e,{ email, name, password });
     console.log(`\n email: ${email} \n name: ${name} \n password: ${password}`);
-    // console.log(signin);
   };
   // const onChangeInput = (e) => {
   //   const name = e.target.name;

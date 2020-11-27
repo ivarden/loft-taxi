@@ -42,10 +42,43 @@ const useStyles = (theme) => ({
 });
 
 class App extends Component {
-  state = { activePage: "home", authorized: false };
+  state = {
+    activePage: "home",
+    authorized: false,
+    user: { email: null, password: null },
+    new_user: { email: null, name: null, password: null },
+  };
 
-  setAuthorized = () => {
-    this.setState((prev) => ({ authorized: !prev.authorized }));
+  login = (e, user) => {
+    e.preventDefault();
+    // user.email === "test" &&
+    //   user.password === "test" &&
+    this.setState((prev) => ({
+      ...prev,
+      user: user,
+      authorized: true,
+      activePage: "map",
+    }));
+  };
+  signin = (e, new_user) => {
+    e.preventDefault();
+    // user.email === "test" &&
+    //   user.password === "test" &&
+    this.setState((prev) => ({
+      ...prev,
+      new_user: new_user,
+      authorized: true,
+      activePage: "map",
+    }));
+  };
+  logout = (e) => {
+    e.preventDefault();
+    this.setState((prev) => ({
+      ...prev,
+      user: null,
+      authorized: false,
+      activePage: "home",
+    }));
   };
 
   setPage = (page) => {
@@ -55,7 +88,7 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     const { activePage, authorized } = this.state;
-    const { setAuthorized, setPage } = this;
+    const { setPage, login, logout, signin } = this;
     const PAGES = () => ({
       home: !authorized && <SignIn />,
       signup: !authorized && <SignUp />,
@@ -66,7 +99,14 @@ class App extends Component {
     return (
       <div className={authorized ? classes.authorized : classes.root}>
         <AuthContext.Provider
-          value={{ authorized, setAuthorized, activePage, setPage }}
+          value={{
+            authorized,
+            activePage,
+            setPage,
+            login,
+            logout,
+            signin,
+          }}
         >
           <Header />
           {PAGES()[activePage]}

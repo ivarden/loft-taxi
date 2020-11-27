@@ -40,7 +40,9 @@ const useStyles = styles({
 
 export default function Navigation() {
   const classes = useStyles();
-  const { authorized, setAuthorized, setPage } = useContext(AuthContext);
+  const { authorized, setPage, logout } = useContext(
+    AuthContext
+  );
   // const history = useHistory();
   // const handleLogOut = () => {
   //   setAuthorized();
@@ -59,13 +61,7 @@ export default function Navigation() {
           >
             Profile
           </span>
-          <span
-            onClick={() => {
-              setAuthorized();
-              setPage("home");
-            }}
-            className={classes.link_wrap}
-          >
+          <span onClick={logout} className={classes.link_wrap}>
             Log out
           </span>
         </div>
