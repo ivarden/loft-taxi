@@ -60,7 +60,7 @@ class App extends Component {
       activePage: "map",
     }));
   };
-  signin = (e, new_user) => {
+  signup = (e, new_user) => {
     e.preventDefault();
     // user.email === "test" &&
     //   user.password === "test" &&
@@ -82,13 +82,18 @@ class App extends Component {
   };
 
   setPage = (page) => {
+    // if (this.isLoggedIn) {
+    //   this.setState({ activePage: page });
+    // } else {
+    //   this.setState({ activePage: "home" });
+    // }
     this.setState({ activePage: page });
   };
 
   render() {
     const { classes } = this.props;
     const { activePage, isLoggedIn } = this.state;
-    const { setPage, login, logout, signin } = this;
+    const { setPage, login, logout, signup } = this;
     const PAGES = () => ({
       home: !isLoggedIn && <SignIn />,
       signup: !isLoggedIn && <SignUp />,
@@ -105,7 +110,7 @@ class App extends Component {
             setPage,
             login,
             logout,
-            signin,
+            signup,
           }}
         >
           <Header />

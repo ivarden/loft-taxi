@@ -21,6 +21,6 @@ export default function Form({ children, ...props }) {
 }
 
 Form.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.array.isRequired,
   props: PropTypes.object,
 };

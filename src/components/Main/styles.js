@@ -8,8 +8,8 @@ export const useStyles = styles({
     justifyContent: "center",
     position: "relative",
     backgroundImage: `url(${map})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
     "@media (max-width: 420px)": {
       flex: "0 0 auto",
       minHeight: "90vh",
@@ -17,12 +17,14 @@ export const useStyles = styles({
     },
   },
   isLoggedIn: {
+    position: "relative",
     flex: "1 1 100%",
+    flexDirection: "column",
     display: "flex",
     justifyContent: "normal",
     backgroundImage: `url(${map})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
     "@media (max-width: 768px)": {
       minHeight: "90vh",
       padding: "1rem",

@@ -11,9 +11,7 @@ function Btn({ title, ...rest }) {
 }
 
 Btn.propsTypes = {
-  text: PropTypes.string,
-  classes: PropTypes.object,
-  rest: PropTypes.any
+  title: PropTypes.string.isRequired,
 };
 
 export default Btn;

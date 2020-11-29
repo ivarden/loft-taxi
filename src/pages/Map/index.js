@@ -12,16 +12,14 @@ export default function Map() {
   };
 
   return (
-    <>
-      <Main>
-        <MapboxMap />
-        {order ? (
-          <Order handleOrder={handleOrder} />
-        ) : (
-          <PopUp handleOrder={handleOrder} />
-        )}
-        <Point />
-      </Main>
-    </>
+    <Main>
+      <MapboxMap />
+      {order ? (
+        <Order handleOrder={handleOrder} />
+      ) : (
+        <PopUp handleOrder={handleOrder} />
+      )}
+      <Point />
+    </Main>
   );
 }

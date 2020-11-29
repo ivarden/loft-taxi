@@ -22,14 +22,12 @@ const useStyles = styles({
     },
   },
   header_isLoggedIn: {
-    flex: "0 0 auto",
+    flex: "0 0 80px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "80px",
     padding: "0 3rem",
     backgroundColor: "#1c1a19",
-    zIndex: "1000",
 
     "@media (max-width: 768px)": {
       minHeight: "10vh",

@@ -19,11 +19,17 @@ const useStyles = (theme) => ({
       },
     },
   },
+  wrap: {
+    width: "100%",
+    height: "100%",
+  },
 });
 
 class MapboxMap extends React.Component {
   constructor(props) {
     super(props);
+    this.map = null;
+    this.mapContainer = React.createRef();
     this.state = {
       lng: 20,
       lat: 40,
@@ -33,27 +39,27 @@ class MapboxMap extends React.Component {
 
   componentDidMount() {
     mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-    new mapboxgl.Map({
-      container: this.mapContainer,
+    this.map = new mapboxgl.Map({
+      container: this.mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom,
     });
-
-    // map.on("move", () => {
-    //   this.setState({
-    //     lng: map.getCenter().lng.toFixed(4),
-    //     lat: map.getCenter().lat.toFixed(4),
-    //     zoom: map.getZoom().toFixed(2),
-    //   });
-    // });
   }
+
+  // componentWillUnmount() {
+  //   this.map.remove();
+  // }
 
   render() {
     const { classes } = this.props;
     return (
-      <div>
-        <div ref={(el) => (this.mapContainer = el)} className={classes.root} />
+      <div className={classes.wrap}>
+        <div
+          data-testid="map"
+          ref={this.mapContainer}
+          className={classes.root}
+        />
       </div>
     );
   }

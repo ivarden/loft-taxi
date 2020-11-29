@@ -33,7 +33,7 @@ const useStyles = styles({
 
 export default function SignUp() {
   const classes = useStyles();
-  const {setPage, signin } = useContext(
+  const {setPage, signup } = useContext(
     AuthContext
   );
   // const history = useHistory();
@@ -49,7 +49,7 @@ export default function SignUp() {
     const name = e.target.name.value;
     const password = e.target.password.value;
     // history.push("/map");
-    signin(e,{ email, name, password });
+    signup(e,{ email, name, password });
     console.log(`\n email: ${email} \n name: ${name} \n password: ${password}`);
   };
   // const onChangeInput = (e) => {

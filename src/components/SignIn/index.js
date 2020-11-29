@@ -43,7 +43,7 @@ export default function SignIn() {
     // history.push("/map");
     // setPage("map");
     login(e, { email, password });
-    // console.log(`\n email: ${email} \n password: ${password}`);
+    console.log({ email, password });
   };
 
   return (

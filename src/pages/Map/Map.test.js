@@ -1,8 +1,7 @@
 import { render } from "@testing-library/react";
 import Map from "./";
 
-
-describe("Sign in page", () => {
+describe("Map page", () => {
   it("renders order car form", () => {
     const { container } = render(<Map />);
     expect(container.innerHTML).toMatch("From");
