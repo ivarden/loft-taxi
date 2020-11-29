@@ -27,11 +27,16 @@ export const AuthContext = React.createContext({});
 //     render() {
 //       return (
 //         <AuthContext.Consumer>
-//           {(value) => {
-//             <WrappedComponent {...value} {...this.props} />;
-//           }}
+//           {(value) => <WrappedComponent {...value} {...this.props} />}
 //         </AuthContext.Consumer>
 //       );
 //     }
 //   };
+// };
+// export const withAuth = function (WrappedComponent) {
+//   return (
+//     <AuthContext.Consumer>
+//       {(value) => <WrappedComponent {...value} {...this.props} />}
+//     </AuthContext.Consumer>
+//   );
 // };
