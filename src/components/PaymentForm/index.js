@@ -20,16 +20,16 @@ const useStyles = (theme) => ({
     flexDirection: "column",
     width: "300px",
     backgroundColor: "white",
-    padding: "20px",
+    padding: "5px 10px 15px 10px",
     borderRadius: "10px",
   },
   form: { display: "flex", flexWrap: "wrap" },
-  title: { marginTop: "0", color: "darkgrey" },
+  title: { margin: '0 0 5px 0', color: "darkgrey", alignSelf: "center" },
   number: { margin: "10px 0" },
   name: { margin: "0" },
   expiry: { margin: "10px 10px 0 0", flex: "1 1 45%" },
   cvc: { margin: "10px 0", flex: "1 1 45%" },
-  button: { margin: "10px 0 0 0", width: "100%" },
+  button: { margin: "0", width: "100%" },
 });
 
 class PaymentForm extends React.Component {
@@ -103,7 +103,7 @@ class PaymentForm extends React.Component {
 
     return (
       <div id="PaymentForm" className={classes.root}>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h2" className={classes.title}>
           Enter your card
         </Typography>
         <Cards

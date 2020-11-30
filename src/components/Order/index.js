@@ -1,79 +1,18 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import PropTypes from "prop-types";
+import Form from "../Form";
+// import { Controller } from "react-hook-form";
+
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
-import Form from "../Form";
-import Cards from "../Cards";
-
 import InputAdornment from "@material-ui/core/InputAdornment";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import Button from "../Button";
+import { useStyles } from "./styles";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    alignSelf: "flex-start",
-    maxWidth: "440px",
-    width: "100%",
-    backgroundColor: "white",
-    alignItems: "center",
-    borderRadius: "10px",
-    boxSizing: "border-box",
-    padding: "0 10px 10px 10px",
-    margin: "20px 0 0 20px",
-  },
-  textField: {
-    display: "flex",
-    margin: "20px 0",
-  },
-  button: {
-    margin: "1rem 0 .5rem 0",
-  },
-  "@media (max-width: 420px)": {
-    root: {
-      margin: "0",
-    },
-  },
-}));
-
-const streets = [
-  {
-    value: "1",
-    label: "Sreet 1",
-  },
-  {
-    value: "2",
-    label: "Sreet 2",
-  },
-  {
-    value: "3",
-    label: "Sreet 3",
-  },
-  {
-    value: "4",
-    label: "Sreet 4",
-  },
-];
-const streets2 = [
-  {
-    value: "1",
-    label: "Sreet 1",
-  },
-  {
-    value: "2",
-    label: "Sreet 2",
-  },
-  {
-    value: "3",
-    label: "Sreet 3",
-  },
-  {
-    value: "4",
-    label: "Sreet 4",
-  },
-];
+import { streets, streets2, car_list } from "./data";
 
 export default function Profile({ handleOrder }) {
   const classes = useStyles();
@@ -87,10 +26,9 @@ export default function Profile({ handleOrder }) {
     const from = e.target.from.value;
     const to = e.target.to.value;
     handleOrder();
-
-    console.log(`\n from: ${from} \n to: ${to}`);
+    console.log(`\n from: ${from} \n to: ${to} \n`);
+    console.log(street);
     return null;
-    // console.log(signin);
   };
   // const onChangeInput = (e) => {
   //   const name = e.target.name;
@@ -98,7 +36,11 @@ export default function Profile({ handleOrder }) {
   //   console.log(name, value)
   //   setSignin((state) => ({ ...state, [name]: value }));
   // };
-  const [street, setStreet] = React.useState({ from: "1", to: "2" });
+  const [street, setStreet] = React.useState({
+    from: "1",
+    to: "2",
+    car: 50,
+  });
   const handleChange = (event) => {
     setStreet((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
@@ -111,6 +53,7 @@ export default function Profile({ handleOrder }) {
           id="from"
           name="from"
           select
+          size="small"
           label="From"
           value={street.from}
           onChange={handleChange}
@@ -135,6 +78,7 @@ export default function Profile({ handleOrder }) {
           id="to"
           name="to"
           select
+          size="small"
           label="Choose destination"
           value={street.to}
           onChange={handleChange}
@@ -154,17 +98,32 @@ export default function Profile({ handleOrder }) {
           ))}
         </TextField>
 
-        <Cards />
+        <div className={classes.cards} onClick={(e) => console.log(e.target)}>
+          {car_list.map((card) => (
+            <MenuItem
+              name="car"
+              value={card.price}
+              key={card.name}
+              className={classes.menu_item}
+            >
+              <div className={classes.card}>
+                <strong>{card.name}</strong>
+                <span>Price</span>
+                <strong>
+                  {card.price} {card.currency}
+                </strong>
+                <img src={card.picture} alt={card.name} />
+              </div>
+            </MenuItem>
+          ))}
+        </div>
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Order
-        </Button>
+        <Button title="Order" className={classes.button} />
       </Form>
     </Box>
   );
 }
+
+Profile.propTypes = {
+  handleOrder: PropTypes.func.isRequired,
+};

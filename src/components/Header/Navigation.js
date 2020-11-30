@@ -1,7 +1,8 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useContext } from "react";
+import styles from "../../helpers/useStyles";
+import { AuthContext } from "../../auth-context";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   root: {},
   wrap: { display: "flex" },
   link_wrap: {
@@ -35,37 +36,34 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "0.8rem",
     },
   },
-}));
+});
 
-export default function Navigation({ authorized, setAuthorized, setPage }) {
+export default function Navigation() {
   const classes = useStyles();
+  const { isLoggedIn, setPage, logout } = useContext(
+    AuthContext
+  );
   // const history = useHistory();
   // const handleLogOut = () => {
-  //   setAuthorized();
+  //   setisLoggedIn();
   //   history.push("/");
   // };
   return (
     <>
-      {authorized && (
+      {isLoggedIn && (
         <div className={classes.wrap}>
-            <span onClick={() => setPage("map")} className={classes.link_wrap}>
-              Map
-            </span>
-            <span
-              onClick={() => setPage("profile")}
-              className={classes.link_wrap}
-            >
-              Profile
-            </span>
-            <span
-              onClick={() => {
-                setAuthorized();
-                setPage("home");
-              }}
-              className={classes.link_wrap}
-            >
-              Log out
-            </span>
+          <span onClick={() => setPage("map")} className={classes.link_wrap}>
+            Map
+          </span>
+          <span
+            onClick={() => setPage("profile")}
+            className={classes.link_wrap}
+          >
+            Profile
+          </span>
+          <span onClick={logout} className={classes.link_wrap}>
+            Log out
+          </span>
         </div>
       )}
     </>

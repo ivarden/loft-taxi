@@ -1,11 +1,22 @@
 import React from "react";
-import "./main.css";
+import PropTypes from "prop-types";
+import { AuthContext } from "../../auth-context";
+import { useStyles } from "./styles";
 
-export default function Main({ authorized, style, children}) {
-
+export default function Main({ style, children }) {
+  const classes = useStyles();
+  const { isLoggedIn } = React.useContext(AuthContext);
   return (
-    <main style={style} className={authorized ? "section authorized" : "section"} >
+    <main
+      style={style}
+      className={isLoggedIn ? classes.isLoggedIn : classes.root}
+    >
       {children}
     </main>
   );
 }
+
+Main.propTypes = {
+  style: PropTypes.object,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
+};

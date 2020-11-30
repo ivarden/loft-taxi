@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { useHistory, Link, BrowserRouter as Router } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Input from "../Input";
+import Button from "../Button";
+import { AuthContext } from "../../auth-context";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -28,10 +29,13 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     cursor: "pointer",
   },
-}));
+});
 
-export default function SignUp({ authorized, setAuthorized, setPage }) {
+export default function SignUp() {
   const classes = useStyles();
+  const {setPage, signup } = useContext(
+    AuthContext
+  );
   // const history = useHistory();
   // const [signin, setSignin] = useState({
   //   email: null,
@@ -45,11 +49,8 @@ export default function SignUp({ authorized, setAuthorized, setPage }) {
     const name = e.target.name.value;
     const password = e.target.password.value;
     // history.push("/map");
-
-    setAuthorized(!authorized);
-    setPage("map");
+    signup(e,{ email, name, password });
     console.log(`\n email: ${email} \n name: ${name} \n password: ${password}`);
-    // console.log(signin);
   };
   // const onChangeInput = (e) => {
   //   const name = e.target.name;
@@ -76,14 +77,7 @@ export default function SignUp({ authorized, setAuthorized, setPage }) {
           label="Password"
           name="password"
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Sign up
-        </Button>
+        <Button title="Sign up" className={classes.button} />
         <p>
           Already Registered?{"  "}
           <span

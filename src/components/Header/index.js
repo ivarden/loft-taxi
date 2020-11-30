@@ -1,11 +1,10 @@
 import React from "react";
-
+import styles from "../../helpers/useStyles";
+import { withAuth } from "../../auth-context";
 import Logo from "../Logo";
-import Navigation from "../Navigation";
+import Navigation from "./Navigation";
 
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   header: {
     flex: "0 1 30%",
     display: "flex",
@@ -22,12 +21,11 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 0.5rem",
     },
   },
-  header_authorized: {
-    flex: "0 0 auto",
+  header_isLoggedIn: {
+    flex: "0 0 80px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "80px",
     padding: "0 3rem",
     backgroundColor: "#1c1a19",
 
@@ -42,18 +40,28 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 0.5rem",
     },
   },
-}));
+});
 
-export default function Header({ authorized, setAuthorized, setPage }) {
+// export default function Header() {
+//   const classes = useStyles();
+//   const { isLoggedIn } = useContext(AuthContext);
+//   return (
+//     <header className={isLoggedIn ? classes.header_isLoggedIn : classes.header}>
+//       <Logo />
+//       <Navigation />
+//     </header>
+//   );
+// }
+
+const Header = (props) => {
   const classes = useStyles();
   return (
-    <header className={authorized ? classes.header_authorized : classes.header}>
-      <Logo authorized={authorized} />
-      <Navigation
-        authorized={authorized}
-        setAuthorized={setAuthorized}
-        setPage={setPage}
-      />
+    <header
+      className={props.isLoggedIn ? classes.header_isLoggedIn : classes.header}
+    >
+      <Logo />
+      <Navigation />
     </header>
   );
-}
+};
+export default withAuth(Header);

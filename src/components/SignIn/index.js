@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { useHistory, Link, BrowserRouter as Router } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Input from "../Input";
+import Button from "../Button";
+import { AuthContext } from "../../auth-context";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styles({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -28,20 +29,21 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: ".5rem",
   },
   etc: { color: "#FDBF5A", textDecoration: "none", cursor: "pointer" },
-}));
+});
 
-export default function SignIn({authorized, setAuthorized, setPage} ) {
+export default function SignIn() {
   const classes = useStyles();
+  const { setPage, login } = useContext(AuthContext);
   // const history = useHistory();
 
   const onSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    setAuthorized(!authorized);
     // history.push("/map");
-    setPage("map");
-    console.log(`\n email: ${email} \n password: ${password}`);
+    // setPage("map");
+    login(e, { email, password });
+    console.log({ email, password });
   };
 
   return (
@@ -50,14 +52,7 @@ export default function SignIn({authorized, setAuthorized, setPage} ) {
         <Input label="Email" name="email" />
         <Input label="Password" name="password" />
         <p className={classes.textRight}>Forgot password?</p>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Sign In
-        </Button>
+        <Button title="Sign In" className={classes.button} />
         <p>
           New user?{" "}
           <span

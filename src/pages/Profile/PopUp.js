@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import Button from "../../components/Button";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { AuthContext } from "../../auth-context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,8 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Popup({setPage}) {
+export default function Popup() {
   const classes = useStyles();
+  const { setPage } = useContext(AuthContext);
   // const history = useHistory();
 
   return (
@@ -42,16 +44,13 @@ export default function Popup({setPage}) {
         Billing information updated. Now you can order a taxi.
       </Typography>
       <Button
+        title="Go to the map"
         className={classes.button}
-        color="primary"
         onClick={() => {
           // history.push("/map");
-          setPage('map')
+          setPage("map");
         }}
-        variant="contained"
-      >
-        Save
-      </Button>
+      />
     </Box>
   );
 }

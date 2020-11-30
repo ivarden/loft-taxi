@@ -1,14 +1,24 @@
 import React, { forwardRef } from "react";
 import { TextField } from "@material-ui/core";
+import PropTypes from "prop-types";
 
-export default forwardRef((props, ref) => {
-  return (
-    <TextField
-      variant="outlined"
-      margin="normal"
-      fullWidth
-      inputRef={ref}
-      {...props}
-    />
-  );
-});
+const Input = () =>
+  forwardRef((props, ref) => {
+    return (
+      <TextField
+        variant="outlined"
+        margin="normal"
+        fullWidth
+        inputRef={ref}
+        {...props}
+      />
+    );
+  });
+
+forwardRef.propTypes = {
+  props: PropTypes.shape({ label: PropTypes.string, name: PropTypes.string })
+    .isRequired,
+  ref: PropTypes.object,
+};
+
+export default Input();
