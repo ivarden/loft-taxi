@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "../../helpers/useStyles";
-import { AuthContext } from "../../auth-context";
+import { withAuth } from "../../auth-context";
 import Logo from "../Logo";
 import Navigation from "./Navigation";
 
@@ -42,13 +42,26 @@ const useStyles = styles({
   },
 });
 
-export default function Header() {
+// export default function Header() {
+//   const classes = useStyles();
+//   const { isLoggedIn } = useContext(AuthContext);
+//   return (
+//     <header className={isLoggedIn ? classes.header_isLoggedIn : classes.header}>
+//       <Logo />
+//       <Navigation />
+//     </header>
+//   );
+// }
+
+const Header = (props) => {
   const classes = useStyles();
-  const { isLoggedIn } = useContext(AuthContext);
   return (
-    <header className={isLoggedIn ? classes.header_isLoggedIn : classes.header}>
+    <header
+      className={props.isLoggedIn ? classes.header_isLoggedIn : classes.header}
+    >
       <Logo />
       <Navigation />
     </header>
   );
-}
+};
+export default withAuth(Header);
