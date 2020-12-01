@@ -1,5 +1,6 @@
 import React from "react";
 import Cards from "react-credit-cards";
+import { connect } from "react-redux";
 import Input from "../Input";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -12,6 +13,7 @@ import {
   formatExpirationDate,
   // formatFormData,
 } from "./utils";
+import { addCard } from "../../redux/actions";
 
 const useStyles = (theme) => ({
   root: {
@@ -24,7 +26,7 @@ const useStyles = (theme) => ({
     borderRadius: "10px",
   },
   form: { display: "flex", flexWrap: "wrap" },
-  title: { margin: '0 0 5px 0', color: "darkgrey", alignSelf: "center" },
+  title: { margin: "0 0 5px 0", color: "darkgrey", alignSelf: "center" },
   number: { margin: "10px 0" },
   name: { margin: "0" },
   expiry: { margin: "10px 10px 0 0", flex: "1 1 45%" },
@@ -78,9 +80,18 @@ class PaymentForm extends React.Component {
       }, {});
 
     console.log(formData);
+
     this.setState({ formData });
     this.form.reset();
     this.props.handlePayment();
+
+    this.props.addCard(formData);
+    // this.props.addCard({
+    //   number: this.state.number,
+    //   name: this.state.name,
+    //   expiry: this.state.expiry,
+    //   cvc: this.state.cvc,
+    // });
   };
 
   render() {
@@ -181,4 +192,18 @@ class PaymentForm extends React.Component {
   }
 }
 
-export default withStyles(useStyles, { withTheme: true })(PaymentForm);
+const mapStateToProps = (state) => {
+  return { card: state.card };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addCard: (payload) => {
+      dispatch(addCard(payload));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(useStyles, { withTheme: true })(PaymentForm));

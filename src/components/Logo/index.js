@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "../../helpers/useStyles";
 import logo_img from "./logo_img.svg";
 import logo_titile from "./logo_title.svg";
-import { AuthContext } from "../../auth-context";
+import { useSelector } from "react-redux";
 
 const useStyles = styles({
   logo_wrap: {
@@ -63,7 +63,7 @@ const useStyles = styles({
 
 export default function Logo() {
   const classes = useStyles();
-  const { isLoggedIn } = useContext(AuthContext);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   return (
     <div

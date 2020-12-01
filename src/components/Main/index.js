@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AuthContext } from "../../auth-context";
+import { useSelector } from "react-redux";
 import { useStyles } from "./styles";
 
 export default function Main({ style, children }) {
   const classes = useStyles();
-  const { isLoggedIn } = React.useContext(AuthContext);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   return (
     <main
       style={style}

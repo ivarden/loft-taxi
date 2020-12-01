@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-// import { useHistory } from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import Button from "../../components/Button";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { AuthContext } from "../../auth-context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,8 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Popup() {
   const classes = useStyles();
-  const { setPage } = useContext(AuthContext);
-  // const history = useHistory();
+  const history = useHistory();
 
   return (
     <Box className={classes.root} component="div">
@@ -47,8 +45,7 @@ export default function Popup() {
         title="Go to the map"
         className={classes.button}
         onClick={() => {
-          // history.push("/map");
-          setPage("map");
+          history.push("/map");
         }}
       />
     </Box>

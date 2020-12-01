@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "../../helpers/useStyles";
-import { AuthContext } from "../../auth-context";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "../../redux/actions";
 
 const useStyles = styles({
   root: {},
@@ -16,6 +18,9 @@ const useStyles = styles({
       color: "#fdbf5a",
     },
     "&:active": {
+      color: "#fdbf5a",
+    },
+    "&.active": {
       color: "#fdbf5a",
     },
   },
@@ -40,30 +45,27 @@ const useStyles = styles({
 
 export default function Navigation() {
   const classes = useStyles();
-  const { isLoggedIn, setPage, logout } = useContext(
-    AuthContext
-  );
-  // const history = useHistory();
-  // const handleLogOut = () => {
-  //   setisLoggedIn();
-  //   history.push("/");
-  // };
+  const history = useHistory();
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const dispatch = useDispatch();
+  const signOutHandler = () => {
+    dispatch(signOut());
+    history.push("/");
+  };
+
   return (
     <>
       {isLoggedIn && (
         <div className={classes.wrap}>
-          <span onClick={() => setPage("map")} className={classes.link_wrap}>
+          <NavLink to="/map" className={classes.link_wrap}>
             Map
-          </span>
-          <span
-            onClick={() => setPage("profile")}
-            className={classes.link_wrap}
-          >
+          </NavLink>
+          <NavLink to="/profile" className={classes.link_wrap}>
             Profile
-          </span>
-          <span onClick={logout} className={classes.link_wrap}>
-            Log out
-          </span>
+          </NavLink>
+          <Link to="" onClick={signOutHandler} className={classes.link_wrap}>
+            Sign out
+          </Link>
         </div>
       )}
     </>

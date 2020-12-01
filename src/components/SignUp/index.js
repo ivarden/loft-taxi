@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-// import { useHistory, Link, BrowserRouter as Router } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
-import { AuthContext } from "../../auth-context";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../redux/actions";
 
 const useStyles = styles({
   root: {
@@ -32,11 +33,9 @@ const useStyles = styles({
 });
 
 export default function SignUp() {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const {setPage, signup } = useContext(
-    AuthContext
-  );
-  // const history = useHistory();
+  const history = useHistory();
   // const [signin, setSignin] = useState({
   //   email: null,
   //   name: null,
@@ -48,8 +47,8 @@ export default function SignUp() {
     const email = e.target.email.value;
     const name = e.target.name.value;
     const password = e.target.password.value;
-    // history.push("/map");
-    signup(e,{ email, name, password });
+    dispatch(signUp({ email, name, password }));
+    history.push("/");
     console.log(`\n email: ${email} \n name: ${name} \n password: ${password}`);
   };
   // const onChangeInput = (e) => {
@@ -80,14 +79,9 @@ export default function SignUp() {
         <Button title="Sign up" className={classes.button} />
         <p>
           Already Registered?{"  "}
-          <span
-            onClick={() => {
-              setPage("home");
-            }}
-            className={classes.etc}
-          >
+          <Link to="/signin" className={classes.etc}>
             Sign in
-          </span>
+          </Link>
         </p>
       </Form>
     </Box>

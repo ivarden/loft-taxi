@@ -6,7 +6,15 @@ import Map from "./pages/Map";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
-import { AuthContext } from "./auth-context";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect,
+  withRouter,
+} from "react-router-dom";
+import { connect } from "react-redux";
+import { signIn, signUp, signOut } from "./redux/actions";
 
 const useStyles = (theme) => ({
   "@global": {
@@ -41,84 +49,76 @@ const useStyles = (theme) => ({
   },
 });
 
+let PrivateRouter = ({
+  component: RouteComponent,
+  isLoggedIn,
+  loginPath,
+  ...rest
+}) => (
+  <Route
+    {...rest}
+    render={(routeProps) =>
+      isLoggedIn ? (
+        <RouteComponent {...routeProps} />
+      ) : (
+        <Redirect to={loginPath} />
+      )
+    }
+  />
+);
+
 class App extends Component {
-  state = {
-    activePage: "home",
-    isLoggedIn: false,
-    user: { email: null, password: null },
-    new_user: { email: null, name: null, password: null },
-  };
-
-  login = (e, user) => {
-    e.preventDefault();
-    // user.email === "test" &&
-    //   user.password === "test" &&
-    this.setState((prev) => ({
-      ...prev,
-      user: user,
-      isLoggedIn: true,
-      activePage: "map",
-    }));
-  };
-  signup = (e, new_user) => {
-    e.preventDefault();
-    // user.email === "test" &&
-    //   user.password === "test" &&
-    this.setState((prev) => ({
-      ...prev,
-      new_user: new_user,
-      isLoggedIn: true,
-      activePage: "map",
-    }));
-  };
-  logout = (e) => {
-    e.preventDefault();
-    this.setState((prev) => ({
-      ...prev,
-      user: null,
-      isLoggedIn: false,
-      activePage: "home",
-    }));
-  };
-
-  setPage = (page) => {
-    // if (this.isLoggedIn) {
-    //   this.setState({ activePage: page });
-    // } else {
-    //   this.setState({ activePage: "home" });
-    // }
-    this.setState({ activePage: page });
-  };
+  state = {};
 
   render() {
-    const { classes } = this.props;
-    const { activePage, isLoggedIn } = this.state;
-    const { setPage, login, logout, signup } = this;
-    const PAGES = () => ({
-      home: !isLoggedIn && <SignIn />,
-      signup: !isLoggedIn && <SignUp />,
-      map: isLoggedIn && <Map />,
-      profile: isLoggedIn && <Profile />,
-    });
+    const { classes, user, isLoggedIn = user.isLoggedIn } = this.props;
 
     return (
-      <div className={isLoggedIn ? classes.isLoggedIn : classes.root}>
-        <AuthContext.Provider
-          value={{
-            isLoggedIn,
-            activePage,
-            setPage,
-            login,
-            logout,
-            signup,
-          }}
-        >
+      <BrowserRouter>
+        <div className={isLoggedIn ? classes.isLoggedIn : classes.root}>
           <Header />
-          {PAGES()[activePage]}
-        </AuthContext.Provider>
-      </div>
+          <Switch>
+            <Route path="/" component={SignIn} exact />
+            <Route path="/signup" component={SignUp} />
+            <PrivateRouter
+              path="/map"
+              component={Map}
+              isLoggedIn={isLoggedIn}
+              loginPath="/"
+            />
+            <PrivateRouter
+              path="/profile"
+              component={Profile}
+              isLoggedIn={isLoggedIn}
+              loginPath="/"
+            />
+            <Redirect to="/" />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
 
-export default withStyles(useStyles, { withTheme: true })(App);
+const mapStateToProps = (state) => {
+  console.log(state);
+  return { user: state.user };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (payload) => {
+      dispatch(signIn(payload));
+    },
+    signUp: (payload) => {
+      dispatch(signUp(payload));
+    },
+    signOut: (payload) => {
+      dispatch(signOut(payload));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(useStyles, { withTheme: true })(App));

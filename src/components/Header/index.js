@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "../../helpers/useStyles";
-import { withAuth } from "../../auth-context";
 import Logo from "../Logo";
 import Navigation from "./Navigation";
+import { useSelector } from "react-redux";
 
 const useStyles = styles({
   header: {
@@ -42,26 +42,14 @@ const useStyles = styles({
   },
 });
 
-// export default function Header() {
-//   const classes = useStyles();
-//   const { isLoggedIn } = useContext(AuthContext);
-//   return (
-//     <header className={isLoggedIn ? classes.header_isLoggedIn : classes.header}>
-//       <Logo />
-//       <Navigation />
-//     </header>
-//   );
-// }
-
 const Header = (props) => {
   const classes = useStyles();
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   return (
-    <header
-      className={props.isLoggedIn ? classes.header_isLoggedIn : classes.header}
-    >
+    <header className={isLoggedIn ? classes.header_isLoggedIn : classes.header}>
       <Logo />
       <Navigation />
     </header>
   );
 };
-export default withAuth(Header);
+export default Header;
