@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import {
-  fetchSignIn,
+  // fetchSignIn,
+  fetchSignInSuccess,
   fetchSignInFailure,
   fetchSignOut,
   fetchSignUp,
@@ -18,7 +19,12 @@ export const initialState = {
 
 // const user = handleAction(
 //   {
-//     [fetchSignIn]: (state, { payload }) => ({
+//     [fetchSignInSuccess]: (state, { payload }) => ({
+//       ...state,
+//       ...payload,
+//       isLoggedIn: payload.success,
+//     }),
+//     [fetchSignInFailure]: (state, { payload }) => ({
 //       ...state,
 //       ...payload,
 //       isLoggedIn: payload.success,
@@ -29,7 +35,7 @@ export const initialState = {
 
 function user(state = initialState.user, action) {
   switch (action.type) {
-    case fetchSignIn.toString():
+    case fetchSignInSuccess.toString():
       return {
         ...state,
         ...action.payload,

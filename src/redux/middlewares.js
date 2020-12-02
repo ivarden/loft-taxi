@@ -1,4 +1,4 @@
-import { fetchSignIn } from "./";
+import { fetchSignIn, fetchSignInSuccess, fetchSignInFailure } from "./";
 
 export const authUser = (store) => (next) => (action) => {
   if (action.type === fetchSignIn.toString()) {
@@ -6,8 +6,8 @@ export const authUser = (store) => (next) => (action) => {
     fetch(
       `https://loft-taxi.glitch.me/auth?username=${action.payload.email}&password=${action.payload.password}`,
       {
-        method: "POST",
-        // mode: 'cors',
+        method: "GET",
+        mode: 'no-cors',
         // credentials: 'same-origin',
         headers: {
           "Content-Type": "application/json",
@@ -16,10 +16,10 @@ export const authUser = (store) => (next) => (action) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        store.dispatch(fetchSignIn(data));
+        store.dispatch(fetchSignInSuccess(data));
       })
       .catch((error) => {
-        store.dispatch(fetchSignIn(error));
+        store.dispatch(fetchSignInFailure(error));
       });
   }
 

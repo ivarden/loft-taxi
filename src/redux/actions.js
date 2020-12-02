@@ -1,6 +1,7 @@
 import { createAction } from "redux-actions";
 
 export const fetchSignIn = createAction("FETCH_SIGN_IN");
+export const fetchSignInSuccess = createAction("FETCH_SIGN_IN_SUCCESS");
 export const fetchSignInFailure = createAction("FETCH_SIGN_IN_FAILURE");
 export const fetchSignUp = createAction("FETCH_SIGN_UP");
 export const fetchSignOut = createAction("FETCH_SIGN_OUT");
