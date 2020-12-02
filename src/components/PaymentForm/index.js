@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import "react-credit-cards/es/styles-compiled.css";
 import Button from "@material-ui/core/Button";
+import { fetchAddCard, getCard } from "../../redux/";
 
 import {
   formatCreditCardNumber,
@@ -13,7 +14,6 @@ import {
   formatExpirationDate,
   // formatFormData,
 } from "./utils";
-import { addCard } from "../../redux/actions";
 
 const useStyles = (theme) => ({
   root: {
@@ -85,7 +85,7 @@ class PaymentForm extends React.Component {
     this.form.reset();
     this.props.handlePayment();
 
-    this.props.addCard(formData);
+    this.props.fetchAddCard(formData);
     // this.props.addCard({
     //   number: this.state.number,
     //   name: this.state.name,
@@ -193,12 +193,12 @@ class PaymentForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { card: state.card };
+  return { card: getCard(state) };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     addCard: (payload) => {
-      dispatch(addCard(payload));
+      dispatch(fetchAddCard(payload));
     },
   };
 };

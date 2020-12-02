@@ -1,25 +1,8 @@
-export const SIGN_IN = "SIGN_IN";
-export const SIGN_UP = "SIGN_UP";
-export const SIGN_OUT = "SIGN_OUT";
-export const ORDER = "ORDER";
-export const ADD_CARD = "ADD_CARD";
+import { createAction } from "redux-actions";
 
-export function signIn(payload) {
-  return { type: SIGN_IN, payload };
-}
-
-export function signUp(payload) {
-  return { type: SIGN_UP, payload };
-}
-
-export function signOut() {
-  return { type: SIGN_OUT };
-}
-
-export function order(payload) {
-  return { type: ORDER, payload };
-}
-
-export function addCard(payload) {
-  return { type: ADD_CARD, payload };
-}
+export const fetchSignIn = createAction("FETCH_SIGN_IN");
+export const fetchSignInFailure = createAction("FETCH_SIGN_IN_FAILURE");
+export const fetchSignUp = createAction("FETCH_SIGN_UP");
+export const fetchSignOut = createAction("FETCH_SIGN_OUT");
+export const fetchAddOrder = createAction("FETCH_ORDER");
+export const fetchAddCard = createAction("FETCH_ADD_CARD");

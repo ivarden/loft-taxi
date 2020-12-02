@@ -11,10 +11,10 @@ import {
   Switch,
   Route,
   Redirect,
-  withRouter,
+  // withRouter,
 } from "react-router-dom";
 import { connect } from "react-redux";
-import { signIn, signUp, signOut } from "./redux/actions";
+import { fetchSignIn, fetchSignUp, fetchSignOut, getUser } from "./redux/";
 
 const useStyles = (theme) => ({
   "@global": {
@@ -102,18 +102,18 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   console.log(state);
-  return { user: state.user };
+  return { user: getUser(state) };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (payload) => {
-      dispatch(signIn(payload));
+      dispatch(fetchSignIn(payload));
     },
     signUp: (payload) => {
-      dispatch(signUp(payload));
+      dispatch(fetchSignUp(payload));
     },
     signOut: (payload) => {
-      dispatch(signOut(payload));
+      dispatch(fetchSignOut(payload));
     },
   };
 };

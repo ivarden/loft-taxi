@@ -6,7 +6,7 @@ import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
 import { useDispatch } from "react-redux";
-import { signIn } from "../../redux/actions";
+import { fetchSignIn } from "../../redux/";
 
 const useStyles = styles({
   root: {
@@ -41,7 +41,7 @@ export default function SignIn() {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    dispatch(signIn({ email, password }));
+    dispatch(fetchSignIn({ email, password }));
     history.push("/map");
   };
 

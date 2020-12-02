@@ -1,52 +1,73 @@
 import { combineReducers } from "redux";
-import { SIGN_IN, SIGN_UP, SIGN_OUT, ORDER, ADD_CARD } from "./actions";
+import {
+  fetchSignIn,
+  fetchSignInFailure,
+  fetchSignOut,
+  fetchSignUp,
+  fetchAddOrder,
+  fetchAddCard,
+} from "./";
+// import { handleAction } from "redux-actions";
 
 export const initialState = {
-  user: { email: null, password: null, isLoggedIn: false },
-  newUser: { email: null, name: null, password: null },
+  user: { success: false, token: null, error: null, isLoggedIn: false },
+  newUser: { success: false, token: null, error: null, isLoggedIn: false },
   order: { street1: null, street2: null, car: null },
-  card: { number: null, name: null, expiry: null, cvc: null },
+  card: { success: false, error: null },
 };
 
+// const user = handleAction(
+//   {
+//     [fetchSignIn]: (state, { payload }) => ({
+//       ...state,
+//       ...payload,
+//       isLoggedIn: payload.success,
+//     }),
+//   },
+//   initialState.user
+// );
+
 function user(state = initialState.user, action) {
-//   console.log('user ', action);
   switch (action.type) {
-    case SIGN_IN:
-      return { ...state, ...action.payload, isLoggedIn: true };
-    case SIGN_OUT:
+    case fetchSignIn.toString():
+      return {
+        ...state,
+        ...action.payload,
+        isLoggedIn: action.payload.success,
+      };
+    case fetchSignInFailure.toString():
+      return { ...state, ...action.payload, isLoggedIn: false };
+    case fetchSignOut.toString():
       return { email: null, password: null, isLoggedIn: false };
     default:
       return state;
   }
 }
 function newUser(state = initialState.newUser, action) {
-    // console.log('newUser ', action);
   switch (action.type) {
-    case SIGN_UP:
+    case fetchSignUp.toString():
       return { ...state, ...action.payload };
-    case SIGN_OUT:
+    case fetchSignOut.toString():
       return { email: null, name: null, password: null };
     default:
       return state;
   }
 }
 function order(state = initialState.order, action) {
-    // console.log('order ', action);
   switch (action.type) {
-    case ORDER:
+    case fetchAddOrder.toString():
       return { ...state, ...action.payload };
-    case SIGN_OUT:
+    case fetchSignOut.toString():
       return { street1: null, street2: null, car: null };
     default:
       return state;
   }
 }
 function card(state = initialState.card, action) {
-    // console.log('card ', action);
   switch (action.type) {
-    case ADD_CARD:
+    case fetchAddCard.toString():
       return { ...state, ...action.payload };
-    case SIGN_OUT:
+    case fetchSignOut.toString():
       return { number: null, name: null, expiry: null, cvc: null };
     default:
       return state;
@@ -61,3 +82,4 @@ const reducer = combineReducers({
 });
 
 export default reducer;
+

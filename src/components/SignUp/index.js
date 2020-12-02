@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
@@ -6,7 +6,7 @@ import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
 import { useDispatch } from "react-redux";
-import { signUp } from "../../redux/actions";
+import { fetchSignUp } from "../../redux/";
 
 const useStyles = styles({
   root: {
@@ -47,7 +47,7 @@ export default function SignUp() {
     const email = e.target.email.value;
     const name = e.target.name.value;
     const password = e.target.password.value;
-    dispatch(signUp({ email, name, password }));
+    dispatch(fetchSignUp({ email, name, password }));
     history.push("/");
     console.log(`\n email: ${email} \n name: ${name} \n password: ${password}`);
   };
