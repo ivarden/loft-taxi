@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  // useDispatch,
+  useSelector,
+} from "react-redux";
 import Form from "../Form";
 // import { Controller } from "react-hook-form";
 import InputBase from "@material-ui/core/InputBase";
@@ -105,14 +108,14 @@ export default function Profile({ handleOrder }) {
                   {card.price} {card.currency}
                 </strong>
                 <img src={card.picture} alt={card.name} />
-              <InputBase
-                className={classes.cardInput}
-                id="car"
-                name="car"
-                value={card.price}
-                onClick={handleChange}
+                <InputBase
+                  className={classes.cardInput}
+                  id="car"
+                  name="car"
+                  value={card.price}
+                  onClick={handleChange}
                 />
-                </div>
+              </div>
             </MenuItem>
           ))}
         </div>
