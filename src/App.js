@@ -1,27 +1,15 @@
-import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import React from "react";
+import styles from "./helpers/useStyles";
 import "fontsource-roboto";
 import Header from "./components/Header";
 import Map from "./pages/Map";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Redirect,
-  // withRouter,
-} from "react-router-dom";
-import { connect } from "react-redux";
-import {
-  // fetchSignIn,
-  // fetchSignUp,
-  // fetchSignOut,
-  getUser,
-} from "./redux/";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const useStyles = (theme) => ({
+const useStyles = styles({
   "@global": {
     body: {
       margin: "0",
@@ -72,58 +60,34 @@ let PrivateRouter = ({
   />
 );
 
-class App extends Component {
-  state = {};
+const App = () => {
+  const classes = useStyles();
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
-  render() {
-    const { classes, user, isLoggedIn = user.isLoggedIn } = this.props;
-
-    return (
-      <BrowserRouter>
-        <div className={isLoggedIn ? classes.isLoggedIn : classes.root}>
-          <Header />
-          <Switch>
-            <Route path="/" component={SignIn} exact />
-            <Route path="/signup" component={SignUp} />
-            <PrivateRouter
-              path="/map"
-              component={Map}
-              isLoggedIn={isLoggedIn}
-              loginPath="/"
-            />
-            <PrivateRouter
-              path="/profile"
-              component={Profile}
-              isLoggedIn={isLoggedIn}
-              loginPath="/"
-            />
-            <Redirect to="/" />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  console.log(state);
-  return { user: getUser(state) };
+  return (
+    <BrowserRouter>
+      <div className={isLoggedIn ? classes.isLoggedIn : classes.root}>
+        <Header />
+        <Switch>
+          <Route path="/" component={SignIn} exact />
+          <Route path="/signup" component={SignUp} />
+          <PrivateRouter
+            path="/map"
+            component={Map}
+            isLoggedIn={isLoggedIn}
+            loginPath="/"
+          />
+          <PrivateRouter
+            path="/profile"
+            component={Profile}
+            isLoggedIn={isLoggedIn}
+            loginPath="/"
+          />
+          <Redirect to="/" />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  );
 };
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     // signIn: (payload) => {
-//     //   dispatch(fetchSignIn(payload));
-//     // },
-//     signUp: (payload) => {
-//       dispatch(fetchSignUp(payload));
-//     },
-//     signOut: (payload) => {
-//       dispatch(fetchSignOut(payload));
-//     },
-//   };
-// };
 
-export default connect(
-  mapStateToProps
-  // mapDispatchToProps
-)(withStyles(useStyles, { withTheme: true })(App));
+export default App;

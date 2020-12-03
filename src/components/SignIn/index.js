@@ -1,11 +1,14 @@
-import React from "react";
+import React, { 
+  useEffect, 
+  // useState 
+} from "react";
 import { useHistory, Link } from "react-router-dom";
 import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchSignIn } from "../../redux/";
 
 const useStyles = styles({
@@ -33,17 +36,22 @@ const useStyles = styles({
 });
 
 export default function SignIn() {
-  const dispatch = useDispatch();
+  // const [email, password] = useState({ email: null, password: null });
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   const onSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     dispatch(fetchSignIn({ email, password }));
-    history.push("/map");
   };
+
+  useEffect(() => {
+    isLoggedIn && history.push("/map");
+  }, [isLoggedIn, history]);
 
   return (
     <Box component="div" className={classes.root}>

@@ -55,6 +55,7 @@ export const useStyles = styles({
     borderRadius: "10px",
     boxSizing: "border-box",
     cursor: "pointer",
+    background: "transparent",
     "& > img": {
       width: "90px",
       alignSelf: "center",
@@ -64,10 +65,26 @@ export const useStyles = styles({
     },
   },
   menu_item: {
+    position: "relative",
     borderRadius: "10px",
     padding: "3px",
     "&:hover": {
       backgroundColor: "rgba(251, 199, 13, .8)",
+    },
+  },
+  cardInput: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    "& > input": {
+      position: "absolute",
+      cursor: "pointer",
+      background: "transparent",
+      width: "100%",
+      height: "100%",
+      color: 'transparent'
     },
   },
 });
