@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import rootReducer from "./reducer";
-import { authUser, getAddresses } from "./";
+import { authUser, getAddresses, registerUser, creditCard } from "./";
 
 const createAppStore = () => {
   const store = createStore(
@@ -8,6 +8,8 @@ const createAppStore = () => {
     compose(
       applyMiddleware(authUser),
       applyMiddleware(getAddresses),
+      applyMiddleware(registerUser),
+      applyMiddleware(creditCard),
       window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : (noop) => noop

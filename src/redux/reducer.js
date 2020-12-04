@@ -3,18 +3,25 @@ import {
   // fetchSignIn,
   fetchSignInSuccess,
   fetchSignInFailure,
+  // fetchAddresses
   fetchAddressesSuccess,
   fetchAddressesFailure,
+  // fetchRegisterUser,
+  fetchRegisterUserSuccess,
+  fetchRegisterUserFailure,
+  // fetchCard,
+  fetchCardSuccess,
+  fetchCardFailure,
+  // fetchOrder,
+  fetchOrderSuccess,
+  fetchOrderFailure,
   fetchSignOut,
-  fetchSignUp,
-  fetchAddOrder,
-  fetchAddCard,
 } from "./";
 import { handleActions } from "redux-actions";
 
 export const initialState = {
   user: { success: false, token: null, error: null, isLoggedIn: false },
-  newUser: { success: false, token: null, error: null, isLoggedIn: false },
+  newUser: {},
   order: { street1: null, street2: null, car: null },
   card: { success: false, error: null },
   addresses: [],
@@ -46,40 +53,28 @@ const addresses = handleActions(
     [fetchAddressesFailure]: (state, { payload }) => ({ ...payload }),
     [fetchSignOut]: (state, { payload }) => ({}),
   },
-  initialState.user
+  initialState.addresses
+);
+const newUser = handleActions(
+  {
+    [fetchRegisterUserSuccess]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
+    [fetchRegisterUserFailure]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
+    [fetchSignOut]: (state, { payload }) => ({}),
+  },
+  initialState.newUser
 );
 
-// function user(state = initialState.user, action) {
-//   switch (action.type) {
-//     case fetchSignInSuccess.toString():
-//       return {
-//         ...state,
-//         ...action.payload,
-//         isLoggedIn: action.payload.success,
-//       };
-//     case fetchSignInFailure.toString():
-//       return { ...state, ...action.payload, isLoggedIn: false };
-//     case fetchSignOut.toString():
-//       return { email: null, password: null, isLoggedIn: false };
-//     default:
-//       return state;
-//   }
-// }
-function newUser(state = initialState.newUser, action) {
-  switch (action.type) {
-    case fetchSignUp.toString():
-      return { ...state, ...action.payload };
-    case fetchSignOut.toString():
-      return { email: null, name: null, password: null };
-    default:
-      return state;
-  }
-}
 function order(state = initialState.order, action) {
   switch (action.type) {
-    case fetchAddOrder.toString():
+    case fetchOrderSuccess.toString():
       return { ...state, ...action.payload };
-    case fetchSignOut.toString():
+    case fetchOrderFailure.toString():
       return { street1: null, street2: null, car: null };
     default:
       return state;
@@ -87,9 +82,9 @@ function order(state = initialState.order, action) {
 }
 function card(state = initialState.card, action) {
   switch (action.type) {
-    case fetchAddCard.toString():
+    case fetchCardSuccess.toString():
       return { ...state, ...action.payload };
-    case fetchSignOut.toString():
+    case fetchCardFailure.toString():
       return { number: null, name: null, expiry: null, cvc: null };
     default:
       return state;

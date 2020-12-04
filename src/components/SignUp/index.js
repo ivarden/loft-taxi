@@ -6,7 +6,7 @@ import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
 import { useDispatch } from "react-redux";
-import { fetchSignUp } from "../../redux/";
+import { fetchRegisterUser } from "../../redux/";
 
 const useStyles = styles({
   root: {
@@ -46,10 +46,11 @@ export default function SignUp() {
     e.preventDefault();
     const email = e.target.email.value;
     const name = e.target.name.value;
+    const surname = e.target.name.value;
     const password = e.target.password.value;
-    dispatch(fetchSignUp({ email, name, password }));
-    history.push("/");
-    console.log(`\n email: ${email} \n name: ${name} \n password: ${password}`);
+    dispatch(fetchRegisterUser({ email, name, surname, password }));
+    // history.push("/");
+    // console.log(`\n email: ${email} \n name: ${name} \n surname: ${surname} \n password: ${password}`);
   };
   // const onChangeInput = (e) => {
   //   const name = e.target.name;
@@ -65,16 +66,25 @@ export default function SignUp() {
           // onChange={onChangeInput}
           label="Email"
           name="email"
+          required
         />
         <Input
           // onChange={onChangeInput}
-          label="Your Name"
+          label="Name"
           name="name"
+          required
+        />
+        <Input
+          // onChange={onChangeInput}
+          label="Surname"
+          name="surname"
+          required
         />
         <Input
           // onChange={onChangeInput}
           label="Password"
           name="password"
+          required
         />
         <Button title="Sign up" className={classes.button} />
         <p>
