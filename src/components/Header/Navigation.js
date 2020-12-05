@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "../../helpers/useStyles";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSignOut } from "../../redux/";
+import { fetchSignOut } from "../../actions/user";
 
 const useStyles = styles({
   root: {},

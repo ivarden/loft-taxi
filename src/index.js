@@ -4,7 +4,7 @@ import App from "./App";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store from "./store";
 
 const theme = createMuiTheme({
   palette: {

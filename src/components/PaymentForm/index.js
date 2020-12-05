@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import "react-credit-cards/es/styles-compiled.css";
 import Button from "@material-ui/core/Button";
-import { fetchAddCard, getCard } from "../../redux/";
+import { fetchAddCard, fetchCard } from "../../actions/card";
 
 import {
   formatCreditCardNumber,
@@ -25,7 +25,7 @@ const useStyles = (theme) => ({
     padding: "5px 10px 15px 10px",
     borderRadius: "10px",
   },
-  form: { display: "flex", flexWrap: "wrap" },
+  form: { display: "flex", flexWrap: "wrap", marginTop: "5px" },
   title: { margin: "0 0 5px 0", color: "darkgrey", alignSelf: "center" },
   number: { margin: "10px 0" },
   name: { margin: "0" },
@@ -79,20 +79,58 @@ class PaymentForm extends React.Component {
         return acc;
       }, {});
 
-    console.log(formData);
-
     this.setState({ formData });
-    this.form.reset();
-    this.props.handlePayment();
 
-    this.props.fetchAddCard(formData);
-    // this.props.addCard({
-    //   number: this.state.number,
-    //   name: this.state.name,
-    //   expiry: this.state.expiry,
-    //   cvc: this.state.cvc,
-    // });
+    this.props.addCard({
+      cardNumber: this.state.number,
+      cardName: this.state.name,
+      expiryDate: this.state.expiry,
+      cvc: this.state.cvc,
+      token: this.props.token,
+    });
+
+    this.props.handlePayment();
+    this.form.reset();
   };
+
+  // static getDerivedStateFromProps(props, state) {
+  //   const { cardNumber, cardName, expiryDate, cvc } = props.card;
+  //   if (state.number !== props.cardNumber) {
+  //     props.getCard(props.token);
+  //     return {
+  //       number: cardNumber || "",
+  //       name: cardName || "",
+  //       expiry: expiryDate || "",
+  //       cvc: cvc || "",
+  //     };
+  //   }
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   this.props.getCard(this.props.token);
+  //   console.log('nextProps',nextProps)
+  //   if (this.props.card !== nextProps.card) {
+  //     this.setState({
+  //       number: nextProps.cardNumber,
+  //       name: nextProps.cardName,
+  //       expiry: nextProps.expiryDate,
+  //       cvc: nextProps.cvc,
+  //     });
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  componentDidMount() {
+    this.props.getCard(this.props.token);
+    
+    this.setState((state) => ({
+      number: this.props.cardNumber || "",
+      name: this.props.cardName || "",
+      expiry: this.props.expiryDate || "",
+      cvc: this.props.cvc || "",
+    }));
+  }
 
   render() {
     const {
@@ -135,6 +173,7 @@ class PaymentForm extends React.Component {
             name="number"
             label="Card Number"
             pattern="[\d| ]{16,22}"
+            value={number}
             required
             onChange={handleInputChange}
             onFocus={handleInputFocus}
@@ -145,6 +184,7 @@ class PaymentForm extends React.Component {
             type="text"
             name="name"
             label="Name on card"
+            value={name}
             required
             onChange={handleInputChange}
             onFocus={handleInputFocus}
@@ -155,6 +195,7 @@ class PaymentForm extends React.Component {
             name="expiry"
             label="Expiry date"
             pattern="\d\d/\d\d"
+            value={expiry}
             required
             onChange={handleInputChange}
             onFocus={handleInputFocus}
@@ -165,6 +206,7 @@ class PaymentForm extends React.Component {
             name="cvc"
             label="CVC/CVV"
             pattern="\d{3,4}"
+            value={cvc}
             required
             onChange={handleInputChange}
             onFocus={handleInputFocus}
@@ -193,12 +235,15 @@ class PaymentForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { card: getCard(state) };
+  return { token: state.user.token, card: state.card };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     addCard: (payload) => {
       dispatch(fetchAddCard(payload));
+    },
+    getCard: (payload) => {
+      dispatch(fetchCard(payload));
     },
   };
 };

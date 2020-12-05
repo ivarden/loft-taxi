@@ -1,6 +1,11 @@
 import { createStore, compose, applyMiddleware } from "redux";
-import rootReducer from "./reducer";
-import { authUser, getAddresses, registerUser, creditCard } from "./";
+import rootReducer from "./reducers/";
+import { authUser } from "./middlewares/authUser";
+import { getAddresses } from "./middlewares/getAddresses";
+import { registerUser } from "./middlewares/registerUser";
+import { addCard } from "./middlewares/addCard";
+import { getCard } from "./middlewares/getCard";
+
 
 const createAppStore = () => {
   const store = createStore(
@@ -9,7 +14,8 @@ const createAppStore = () => {
       applyMiddleware(authUser),
       applyMiddleware(getAddresses),
       applyMiddleware(registerUser),
-      applyMiddleware(creditCard),
+      applyMiddleware(addCard),
+      applyMiddleware(getCard),
       window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : (noop) => noop

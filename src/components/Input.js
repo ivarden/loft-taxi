@@ -11,6 +11,9 @@ const Input = () =>
         fullWidth
         inputRef={ref}
         {...props}
+        InputProps={{
+          defaultValue: props.defaultValue,
+        }}
       />
     );
   });

@@ -9,7 +9,7 @@ import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSignIn } from "../../redux/";
+import { fetchSignIn } from "../../actions/user";
 
 const useStyles = styles({
   root: {

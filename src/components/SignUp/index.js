@@ -1,12 +1,15 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import {
+  Link,
+  // useHistory
+} from "react-router-dom";
 import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
 import { useDispatch } from "react-redux";
-import { fetchRegisterUser } from "../../redux/";
+import { fetchRegisterUser } from "../../actions/user";
 
 const useStyles = styles({
   root: {
@@ -35,7 +38,7 @@ const useStyles = styles({
 export default function SignUp() {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
   // const [signin, setSignin] = useState({
   //   email: null,
   //   name: null,
