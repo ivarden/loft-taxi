@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "../../helpers/useStyles";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSignOut } from "../../actions/user";
+import { signOut } from "../../actions/user";
 
 const useStyles = styles({
   root: {},
@@ -49,7 +49,7 @@ export default function Navigation() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useDispatch();
   const signOutHandler = () => {
-    dispatch(fetchSignOut());
+    dispatch(signOut());
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { fetchSignInSuccess, fetchSignInFailure, fetchSignOut } from "../actions/user.js";
+import { fetchSignInSuccess, fetchSignInFailure, signOut } from "../actions/user.js";
 import { handleActions } from "redux-actions";
 
 const user = handleActions(
@@ -13,7 +13,7 @@ const user = handleActions(
       ...payload,
       isLoggedIn: payload.success,
     }),
-    [fetchSignOut]: (state, { payload }) => ({
+    [signOut]: (state, { payload }) => ({
       ...state,
       ...payload,
       isLoggedIn: false,

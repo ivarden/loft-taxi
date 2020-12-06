@@ -22,7 +22,7 @@ export const registerUser = (store) => (next) => (action) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
-        if (!data.success) alert(data.error);
+        // if (!data.success) alert(data.error);
         store.dispatch(fetchRegisterUserSuccess(data));
       })
       .catch((error) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import Cards from "react-credit-cards";
 import { connect } from "react-redux";
+import { compose } from "lodash/fp";
 import Input from "../Input";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -93,42 +94,15 @@ class PaymentForm extends React.Component {
     this.form.reset();
   };
 
-  // static getDerivedStateFromProps(props, state) {
-  //   const { cardNumber, cardName, expiryDate, cvc } = props.card;
-  //   if (state.number !== props.cardNumber) {
-  //     props.getCard(props.token);
-  //     return {
-  //       number: cardNumber || "",
-  //       name: cardName || "",
-  //       expiry: expiryDate || "",
-  //       cvc: cvc || "",
-  //     };
-  //   }
-  // }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   this.props.getCard(this.props.token);
-  //   console.log('nextProps',nextProps)
-  //   if (this.props.card !== nextProps.card) {
-  //     this.setState({
-  //       number: nextProps.cardNumber,
-  //       name: nextProps.cardName,
-  //       expiry: nextProps.expiryDate,
-  //       cvc: nextProps.cvc,
-  //     });
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   componentDidMount() {
     this.props.getCard(this.props.token);
-    
+    const { cardNumber, cardName, expiryDate, cvc } = this.props.card;
+
     this.setState((state) => ({
-      number: this.props.cardNumber || "",
-      name: this.props.cardName || "",
-      expiry: this.props.expiryDate || "",
-      cvc: this.props.cvc || "",
+      number: cardNumber || "",
+      name: cardName || "",
+      expiry: expiryDate || "",
+      cvc: cvc || "",
     }));
   }
 
@@ -248,7 +222,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(useStyles, { withTheme: true })(PaymentForm));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(useStyles, { withTheme: true })
+)(PaymentForm);
