@@ -5,6 +5,7 @@ import { getAddresses } from "./middlewares/getAddresses";
 import { registerUser } from "./middlewares/registerUser";
 import { addCard } from "./middlewares/addCard";
 import { getCard } from "./middlewares/getCard";
+import { addOrder } from "./middlewares/addOrder";
 
 
 const createAppStore = () => {
@@ -16,6 +17,7 @@ const createAppStore = () => {
       applyMiddleware(registerUser),
       applyMiddleware(addCard),
       applyMiddleware(getCard),
+      applyMiddleware(addOrder),
       window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : (noop) => noop

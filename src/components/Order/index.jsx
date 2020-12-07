@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  // useDispatch,
+  useDispatch,
   useSelector,
 } from "react-redux";
 import Form from "../Form";
+import { fetchOrder } from "../../actions/order";
 // import { Controller } from "react-hook-form";
 import InputBase from "@material-ui/core/InputBase";
 import TextField from "@material-ui/core/TextField";
@@ -18,8 +19,9 @@ import { useStyles } from "./styles";
 
 import { car_list } from "./data";
 
-export default function Profile({ handleOrder }) {
+function Order({ handleOrder }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { addresses } = useSelector((state) => state.addresses);
 
   const [address, setAddress] = React.useState({
@@ -33,11 +35,11 @@ export default function Profile({ handleOrder }) {
     const address1 = address.address1;
     const address2 = address.address2;
     const car = address.car;
+    dispatch(fetchOrder({ address1, address2, car }));
     handleOrder();
     console.log(
       `\n address1: ${address1} \n address2: ${address2} \n car: ${car} \n`
     );
-    return null;
   };
 
   const handleChange = (e) => {
@@ -126,6 +128,8 @@ export default function Profile({ handleOrder }) {
   );
 }
 
-Profile.propTypes = {
+Order.propTypes = {
   handleOrder: PropTypes.func.isRequired,
 };
+
+export default Order;

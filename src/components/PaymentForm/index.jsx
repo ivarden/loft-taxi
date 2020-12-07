@@ -94,10 +94,20 @@ class PaymentForm extends React.Component {
     this.form.reset();
   };
 
+  componentWillUpdate(prevProps) {
+    if (JSON.stringify(prevProps.card) !== JSON.stringify(this.props.card)) {
+      this.setState((state) => ({
+        number: this.props.card.cardNumber,
+        name: this.props.card.cardName,
+        expiry: this.props.card.expiryDate,
+        cvc: this.props.card.cvc,
+      }));
+    }
+  }
+
   componentDidMount() {
     this.props.getCard(this.props.token);
     const { cardNumber, cardName, expiryDate, cvc } = this.props.card;
-
     this.setState((state) => ({
       number: cardNumber || "",
       name: cardName || "",
@@ -211,6 +221,7 @@ class PaymentForm extends React.Component {
 const mapStateToProps = (state) => {
   return { token: state.user.token, card: state.card };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     addCard: (payload) => {

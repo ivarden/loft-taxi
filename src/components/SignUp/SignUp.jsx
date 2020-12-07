@@ -36,8 +36,6 @@ const SignUp = ({ signUp, history, success, error, token }) => {
   useEffect(() => {
     if (token) {
       history.push("/");
-    } else {
-      console.log(error);
     }
   }, [success, error, token, history]);
 
