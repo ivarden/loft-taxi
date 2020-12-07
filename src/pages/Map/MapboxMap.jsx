@@ -9,7 +9,6 @@ const useStyles = (theme) => ({
     right: 0,
     left: 0,
     bottom: 0,
-    // width: "100%",
     zIndex: 1,
     "@global": {
       ".mapboxgl-ctrl-attrib-inner, .mapboxgl-ctrl-attrib": {
@@ -34,7 +33,7 @@ const useStyles = (theme) => ({
 class MapboxMap extends React.Component {
   constructor(props) {
     super(props);
-    this.map = null;
+    // this.map = null;
     this.mapContainer = React.createRef();
     this.state = {
       lng: -123.116226,
@@ -55,13 +54,14 @@ class MapboxMap extends React.Component {
       width: "100vw",
       height: "100vh",
     });
+
     const nav = new mapboxgl.NavigationControl({
       showCompass: true,
     });
     this.map.addControl(nav, "bottom-right");
-
-    this.map.on("style.load", function () {
-      this.map.addSource("style.route", {
+    
+    this.map.on(this.load, function () {
+      this.map.addSource(this.route, {
         type: "geojson",
         data: {
           type: "Feature",
@@ -106,10 +106,11 @@ class MapboxMap extends React.Component {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "#888",
+          "line-color": "#ee0909",
           "line-width": 8,
         },
       });
+      return this.map
     });
   }
 

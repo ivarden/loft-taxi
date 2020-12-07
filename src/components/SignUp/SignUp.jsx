@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
@@ -32,6 +32,12 @@ const useStyles = styles({
 
 const SignUp = ({ signUp, history, success, error, token }) => {
   const classes = useStyles();
+  const [signup, setSignin] = useState({
+    email: '',
+    name: '',
+    surname: '',
+    password: '',
+  });
 
   useEffect(() => {
     if (token) {
@@ -39,54 +45,53 @@ const SignUp = ({ signUp, history, success, error, token }) => {
     }
   }, [success, error, token, history]);
 
-  // const history = useHistory();
-  // const [signin, setSignin] = useState({
-  //   email: null,
-  //   name: null,
-  //   password: null,
-  // });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const name = e.target.name.value;
-    const surname = e.target.name.value;
-    const password = e.target.password.value;
+    const email = signup.email;
+    const name = signup.name;
+    const surname = signup.surname;
+    const password = signup.password;
     signUp({ email, name, surname, password });
   };
-  // const onChangeInput = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   console.log(name, value)
-  //   setSignin((state) => ({ ...state, [name]: value }));
-  // };
+
+  const onChangeInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    console.log(name, value)
+    setSignin((state) => ({ ...state, [name]: value }));
+  };
 
   return (
     <Box component="div" className={classes.root}>
       {error && <h4>{error}</h4>}
       <Form onSubmit={onSubmit}>
         <Input
-          // onChange={onChangeInput}
           label="Email"
           name="email"
+          value={signup.email}
+          onChange={onChangeInput}
           required
         />
         <Input
-          // onChange={onChangeInput}
           label="Name"
           name="name"
+          value={signup.name}
+          onChange={onChangeInput}
           required
         />
         <Input
-          // onChange={onChangeInput}
           label="Surname"
           name="surname"
+          value={signup.surname}
+          onChange={onChangeInput}
           required
         />
         <Input
-          // onChange={onChangeInput}
           label="Password"
           name="password"
+          value={signup.password}
+          onChange={onChangeInput}
           required
         />
         <Button title="Sign up" className={classes.button} />

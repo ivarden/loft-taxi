@@ -97,10 +97,10 @@ class PaymentForm extends React.Component {
   componentWillUpdate(prevProps) {
     if (JSON.stringify(prevProps.card) !== JSON.stringify(this.props.card)) {
       this.setState((state) => ({
-        number: this.props.card.cardNumber,
-        name: this.props.card.cardName,
-        expiry: this.props.card.expiryDate,
-        cvc: this.props.card.cvc,
+        number: this.props.card.cardNumber || '',
+        name: this.props.card.cardName || '',
+        expiry: this.props.card.expiryDate || '',
+        cvc: this.props.card.cvc || '',
       }));
     }
   }
