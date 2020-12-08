@@ -5,7 +5,6 @@ export const getCard = (store) => (next) => (action) => {
     fetch(`https://loft-taxi.glitch.me/card?token=${action.payload}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("fetchCard data", data);
         store.dispatch(fetchCardSuccess(data));
       })
       .catch((error) => {

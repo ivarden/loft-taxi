@@ -94,7 +94,7 @@ class PaymentForm extends React.Component {
     this.form.reset();
   };
 
-  componentWillUpdate(prevProps) {
+  UNSAFE_componentWillUpdate(prevProps) {
     if (JSON.stringify(prevProps.card) !== JSON.stringify(this.props.card)) {
       this.setState((state) => ({
         number: this.props.card.cardNumber || '',

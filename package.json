@@ -12,6 +12,7 @@
     "@testing-library/react-hooks": "^3.4.2",
     "@testing-library/user-event": "^12.1.10",
     "fontsource-roboto": "^3.0.3",
+    "history": "^5.0.0",
     "libphonenumber-js": "^1.9.4",
     "lodash": "^4.17.20",
     "mapbox-gl": "^1.13.0",
