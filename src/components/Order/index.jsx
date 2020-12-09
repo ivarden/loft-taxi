@@ -1,12 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  useDispatch,
-  useSelector,
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Form from "../Form";
 import { fetchOrder } from "../../actions/order";
-// import { Controller } from "react-hook-form";
 import InputBase from "@material-ui/core/InputBase";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -25,8 +21,8 @@ function Order({ handleOrder }) {
   const { addresses } = useSelector((state) => state.addresses);
 
   const [address, setAddress] = React.useState({
-    address1: "Пулково (LED)",
-    address2: "Эрмитаж",
+    address1: addresses[0],
+    address2: addresses[1],
     car: 50,
   });
 
@@ -37,9 +33,6 @@ function Order({ handleOrder }) {
     const car = address.car;
     dispatch(fetchOrder({ address1, address2, car }));
     handleOrder();
-    console.log(
-      `\n address1: ${address1} \n address2: ${address2} \n car: ${car} \n`
-    );
   };
 
   const handleChange = (e) => {

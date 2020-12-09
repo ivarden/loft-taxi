@@ -1,7 +1,7 @@
 export const drawRoute = (map, coordinates) => {
     map.flyTo({
       center: coordinates[0],
-      zoom: 15
+      zoom: 10
     });
    
     map.addLayer({
