@@ -7,7 +7,6 @@ import Button from "../Button";
 import { useStyles } from "./styles";
 
 const SignIn = ({ isLoggedIn, history, signIn }) => {
-  console.log('isLoggedIn ', isLoggedIn);
   const [user, setUser] = useState({ email: "", password: "" });
   const classes = useStyles();
 

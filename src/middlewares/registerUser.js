@@ -6,7 +6,6 @@ import {
 
 export const registerUser = (store) => (next) => (action) => {
   if (action.type === fetchRegisterUser.toString()) {
-    console.log("action", JSON.stringify(action));
     fetch("https://loft-taxi.glitch.me/register", {
       method: "POST",
       body: JSON.stringify({
@@ -21,12 +20,10 @@ export const registerUser = (store) => (next) => (action) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
         // if (!data.success) alert(data.error);
         store.dispatch(fetchRegisterUserSuccess(data));
       })
       .catch((error) => {
-        console.log("error", error);
         store.dispatch(fetchRegisterUserFailure(error));
       });
   }

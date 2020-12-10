@@ -18,7 +18,7 @@ describe("Order form", () => {
     const { container } = render(
       <BrowserRouter>
         <Provider store={mockStore}>
-          <Order />
+          <Order handleOrder={()=>{}} />
         </Provider>
       </BrowserRouter>
     );

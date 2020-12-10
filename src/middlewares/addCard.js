@@ -15,7 +15,6 @@ export const addCard = (store) => (next) => (action) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         store.dispatch(fetchAddCardSuccess(data));
       })
       .catch((error) => {

@@ -9,7 +9,7 @@ const addresses = handleActions(
     [fetchAddressesSuccess]: (state, { payload }) => ({ ...payload }),
     [fetchAddressesFailure]: (state, { payload }) => ({ ...payload }),
   },
-  []
+  { addresses: [] }
 );
 
 export default addresses;

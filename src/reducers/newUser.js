@@ -15,7 +15,7 @@ const newUser = handleActions(
       ...payload,
     }),
   },
-  {}
+  { success: null, token: null }
 );
 
 export default newUser;

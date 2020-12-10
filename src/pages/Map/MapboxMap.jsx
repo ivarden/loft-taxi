@@ -58,7 +58,7 @@ class MapboxMap extends React.Component {
     const nav = new mapboxgl.NavigationControl({
       showCompass: true,
     });
-    this.map.addControl(nav, "bottom-right");
+    this.map.addControl(nav, "top-right");
     return this.map;
   };
 
@@ -66,18 +66,18 @@ class MapboxMap extends React.Component {
     mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
     this.map_();
     this.map.on("load", () => {
-      drawRoute(this.map, this.props.coordinates);
+      drawRoute(this.map, this.props.route || [[this.state.lng, this.state.lat]]);
     });
   }
 
   UNSAFE_componentWillUpdate(nextProps) {
     if (
-      JSON.stringify(nextProps.coordinates) !==
-      JSON.stringify(this.props.coordinates)
+      JSON.stringify(nextProps.route) !==
+      JSON.stringify(this.props.route)
     ) {
       this.map_();
       this.map.on("load", () => {
-        drawRoute(this.map, this.props.coordinates);
+        drawRoute(this.map, this.props.route);
       });
     }
   }
@@ -101,7 +101,7 @@ class MapboxMap extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  coordinates: state.order,
+  route: state.order.route,
 });
 
 export default compose(

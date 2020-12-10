@@ -1,10 +1,8 @@
 import { render } from "@testing-library/react";
-import Map from "./";
+import Map from ".";
 import { Provider } from "react-redux";
-// import mapboxgl from "mapbox-gl";
 
-// const map = new mapboxgl.Map({});
-const map = { addControl: jest.fn() };
+// const map = { addControl: jest.fn() };
 
 describe("Map page", () => {
   it("renders order car form", () => {
@@ -14,8 +12,10 @@ describe("Map page", () => {
           getState: () => ({
             user: { isLoggedIn: true },
             addresses: { addresses: [" ", " "] },
+            coordinates:{coordinates:[]},
           }),
-          dispatch: () => ({map: map}),
+          subscribe: () => {},
+          dispatch: () => {},
         }}
       >
         <Map />

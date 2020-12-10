@@ -9,7 +9,6 @@ export const getAddresses = (store) => (next) => (action) => {
     fetch(`https://loft-taxi.glitch.me/addressList`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         store.dispatch(fetchAddressesSuccess(data));
       })
       .catch((error) => {
