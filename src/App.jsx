@@ -2,12 +2,13 @@ import React from "react";
 import styles from "./helpers/useStyles";
 import "fontsource-roboto";
 import Header from "./components/Header";
-import Map from "./pages/Map";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Map from "./pages/Map";
 import Profile from "./pages/Profile";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import PrivateRouter from './components/PrivateRout'
 
 const useStyles = styles({
   "@global": {
@@ -42,23 +43,23 @@ const useStyles = styles({
   },
 });
 
-let PrivateRouter = ({
-  component: RouteComponent,
-  isLoggedIn,
-  loginPath,
-  ...rest
-}) => (
-  <Route
-    {...rest}
-    render={(routeProps) =>
-      isLoggedIn ? (
-        <RouteComponent {...routeProps} />
-      ) : (
-        <Redirect to={loginPath} />
-      )
-    }
-  />
-);
+// let PrivateRouter =( {
+//   component: RouteComponent,
+//   isLoggedIn,
+//   loginPath,
+//   ...rest
+// }) => (
+//   <Route
+//     {...rest}
+//     render={(routeProps) =>
+//       isLoggedIn ? (
+//         <RouteComponent {...routeProps} />
+//       ) : (
+//         <Redirect to={loginPath} />
+//       )
+//     }
+//   />
+// );
 
 const App = () => {
   const classes = useStyles();
