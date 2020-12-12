@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import rootReducer from "./reducers/";
 import createSagaMiddleware from "redux-saga";
-import { fork, all } from "redux-saga/effects";
+import { fork } from "redux-saga/effects";
 import watchAuthUser from "./middlewares/authUserSaga";
 import watchRegisterUser from "./middlewares/registerUserSaga";
 import watchGetCard from "./middlewares/getCardSaga";
