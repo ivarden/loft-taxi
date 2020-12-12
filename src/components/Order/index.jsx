@@ -57,7 +57,7 @@ function Order({ handleOrder }) {
       setAddress((prev) => ({ ...prev, addresses2: filteredAddresses }));
     }
     addressFilter(address.address1);
-  }, [address.address1]);
+  }, [address.address1, addresses]);
 
   return (
     <Box component="div" className={classes.root}>
