@@ -8,12 +8,7 @@ export const registerUser = (store) => (next) => (action) => {
   if (action.type === fetchRegisterUser.toString()) {
     fetch("https://loft-taxi.glitch.me/register", {
       method: "POST",
-      body: JSON.stringify({
-        email: action.payload.email,
-        name: action.payload.name,
-        surname: action.payload.surname,
-        password: action.payload.password,
-      }),
+      body: JSON.stringify(action.payload),
       headers: {
         "Content-Type": "application/json",
       },

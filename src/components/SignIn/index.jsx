@@ -3,10 +3,11 @@ import { compose } from "lodash/fp";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
-import SignIn from './SignIn'
+import SignIn from "./SignIn";
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.user.isLoggedIn,
+  error: state.user.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -15,5 +16,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withRouter,
+  withRouter
 )(SignIn);

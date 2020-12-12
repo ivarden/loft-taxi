@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
+import MuiAlert from "@material-ui/lab/Alert";
 import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
@@ -33,10 +34,10 @@ const useStyles = styles({
 const SignUp = ({ signUp, history, success, error, token }) => {
   const classes = useStyles();
   const [signup, setSignin] = useState({
-    email: '',
-    name: '',
-    surname: '',
-    password: '',
+    email: "",
+    name: "",
+    surname: "",
+    password: "",
   });
 
   useEffect(() => {
@@ -44,7 +45,6 @@ const SignUp = ({ signUp, history, success, error, token }) => {
       history.push("/");
     }
   }, [success, error, token, history]);
-
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +63,11 @@ const SignUp = ({ signUp, history, success, error, token }) => {
 
   return (
     <Box component="div" className={classes.root}>
-      {error && <h4>{error}</h4>}
+      {error && (
+        <MuiAlert open={error} severity="error">
+          <strong>{error}</strong>
+        </MuiAlert>
+      )}
       <Form onSubmit={onSubmit}>
         <Input
           label="Email"

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "../../helpers/useStyles";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,11 +50,8 @@ export default function Navigation() {
   const dispatch = useDispatch();
   const signOutHandler = () => {
     dispatch(signOut());
+    history.push("/")
   };
-
-  useEffect(() => {
-    !isLoggedIn ?? history.push("/");
-  }, [history, isLoggedIn]);
 
   return (
     <>

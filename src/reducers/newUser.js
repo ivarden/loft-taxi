@@ -2,6 +2,7 @@ import {
   fetchRegisterUserSuccess,
   fetchRegisterUserFailure,
 } from "../actions/user";
+import { signOutSuccess } from "../actions/user";
 import { handleActions } from "redux-actions";
 
 const newUser = handleActions(
@@ -14,8 +15,13 @@ const newUser = handleActions(
       ...state,
       ...payload,
     }),
+    [signOutSuccess]: (state, { payload }) => ({
+      ...state,
+      success: false,
+      token: null,
+    }),
   },
-  { success: null, token: null }
+  { success: false, token: null }
 );
 
 export default newUser;

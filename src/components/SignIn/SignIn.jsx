@@ -5,8 +5,9 @@ import Form from "../Form";
 import Input from "../Input";
 import Button from "../Button";
 import { useStyles } from "./styles";
+import MuiAlert from "@material-ui/lab/Alert";
 
-const SignIn = ({ isLoggedIn, history, signIn }) => {
+const SignIn = ({ isLoggedIn, history, signIn, error }) => {
   const [user, setUser] = useState({ email: "", password: "" });
   const classes = useStyles();
 
@@ -24,7 +25,8 @@ const SignIn = ({ isLoggedIn, history, signIn }) => {
   };
 
   useEffect(() => {
-    isLoggedIn && history.push("/map");
+    isLoggedIn && history.push("/profile");
+    // isLoggedIn && history.push("/map");
   }, [isLoggedIn, history]);
 
   useEffect(() => {
@@ -35,6 +37,11 @@ const SignIn = ({ isLoggedIn, history, signIn }) => {
   return (
     <Box component="div" className={classes.root}>
       <Form onSubmit={onSubmit}>
+        {error && (
+          <MuiAlert open={error} severity="error">
+            <strong>{error}</strong>
+          </MuiAlert>
+        )}
         <Input
           label="Email"
           name="email"
