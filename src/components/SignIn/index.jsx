@@ -1,21 +1,19 @@
+import { fetchSignIn } from "../../actions/user";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { fetchRegisterUser } from "../../actions/user";
 
-import SignUp from "./SignUp";
+import SignIn from './SignIn'
 
 const mapStateToProps = (state) => ({
-  success: state.newUser.success,
-  token: state.newUser.token,
-  error: state.newUser.error,
+  isLoggedIn: state.user.isLoggedIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signUp: (props) => dispatch(fetchRegisterUser(props)),
+  signIn: (props) => dispatch(fetchSignIn(props)),
 });
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withRouter
-)(SignUp);
+  withRouter,
+)(SignIn);
