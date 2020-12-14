@@ -3,7 +3,8 @@ import {
   fetchAddressesSuccess,
   fetchAddressesFailure,
 } from "../actions/addresses";
-import { fetchSignIn } from "../actions/user";
+import { fetchSignIn, fetchRegisterUser } from "../actions/user";
+import { fetchAddresses } from "../actions/addresses";
 
 const api = (data) =>
   fetch(`https://loft-taxi.glitch.me/addressList`).then((response) =>
@@ -11,7 +12,7 @@ const api = (data) =>
   );
 
 export default function* watchGetAddresses() {
-  yield takeLatest(fetchSignIn, function* (action) {
+  yield takeLatest([fetchSignIn, fetchRegisterUser, fetchAddresses], function* (action) {
     try {
       const result = yield call(api, action.payload);
       yield put(fetchAddressesSuccess(result));

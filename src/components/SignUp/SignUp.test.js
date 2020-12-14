@@ -10,7 +10,7 @@ describe("Sign up form", () => {
         <Provider
           store={{
             getState: () => ({
-              newUser: { success: false, token: null },
+              user: { success: false, token: null },
             }),
             subscribe: () => {},
             dispatch: () => ({ signUp: () => {} }),

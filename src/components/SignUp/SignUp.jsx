@@ -42,7 +42,7 @@ const SignUp = ({ signUp, history, success, error, token }) => {
 
   useEffect(() => {
     if (token) {
-      history.push("/");
+      history.push("/map");
     }
   }, [success, error, token, history]);
 

@@ -25,8 +25,8 @@ const SignIn = ({ isLoggedIn, history, signIn, error }) => {
   };
 
   useEffect(() => {
-    isLoggedIn && history.push("/profile");
-    // isLoggedIn && history.push("/map");
+    // isLoggedIn && history.push("/profile");
+    isLoggedIn && history.push("/map");
   }, [isLoggedIn, history]);
 
   useEffect(() => {

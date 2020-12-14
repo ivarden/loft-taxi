@@ -5,6 +5,13 @@ import {
 } from "../actions/user.js";
 import { handleActions } from "redux-actions";
 
+const initialState = {
+  success: JSON.parse(localStorage.getItem('loftTaxi')).success || false,
+  token: JSON.parse(localStorage.getItem('loftTaxi')).token || null,
+  isLoggedIn: JSON.parse(localStorage.getItem('loftTaxi')).success || false,
+  error: null,
+};
+
 const user = handleActions(
   {
     [fetchSignInSuccess]: (state, { payload }) => ({
@@ -25,7 +32,7 @@ const user = handleActions(
       error: null,
     }),
   },
-  { success: false, token: null, error: null, isLoggedIn: false }
+  initialState
 );
 
 export default user;

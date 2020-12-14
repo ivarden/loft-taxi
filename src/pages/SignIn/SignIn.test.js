@@ -9,10 +9,12 @@ describe("Sign in page", () => {
     const mockStore = {
       getState: () => ({ user: { isLogedIn: false } }),
       subscribe: () => {},
-      dispatch: () => {},
+      dispatch: () => ({
+        signUp: () => {},
+      }),
     };
     const { container } = render(
-      <BrowserRouter >
+      <BrowserRouter>
         <Provider store={mockStore}>
           <SignIn />
         </Provider>

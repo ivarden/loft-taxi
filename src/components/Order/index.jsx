@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 import Form from "../Form";
-import { fetchOrder } from "../../actions/order";
 import InputBase from "@material-ui/core/InputBase";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -12,17 +10,11 @@ import NearMeIcon from "@material-ui/icons/NearMe";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import Button from "../Button";
 import { useStyles } from "./styles";
-import { useHistory } from "react-router-dom";
 
 import { car_list } from "./data";
 
-function Order({ handleOrder }) {
+function Order({ handleOrder, fetchOrder, history, addresses, error }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  let history = useHistory();
-
-  const { addresses } = useSelector((state) => state.addresses);
-  const { error } = useSelector((state) => state.card);
 
   const [address, setAddress] = React.useState({
     address1: "",
@@ -37,7 +29,7 @@ function Order({ handleOrder }) {
     const address1 = address.address1;
     const address2 = address.address2;
     const car = address.car;
-    dispatch(fetchOrder({ address1, address2, car }));
+    fetchOrder({ address1, address2, car });
     handleOrder();
   };
 
@@ -54,9 +46,13 @@ function Order({ handleOrder }) {
   useEffect(() => {
     function addressFilter() {
       let filteredAddresses = addresses.filter((el) => el !== address.address1);
-      setAddress((prev) => ({ ...prev, addresses2: filteredAddresses }));
+      setAddress((prev) => ({
+        ...prev,
+        addresses1: addresses,
+        addresses2: filteredAddresses,
+      }));
     }
-    addressFilter(address.address1);
+    addressFilter();
   }, [address.address1, addresses]);
 
   return (

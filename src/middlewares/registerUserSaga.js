@@ -1,9 +1,12 @@
 import { takeLatest, call, put } from "redux-saga/effects";
 import {
   fetchRegisterUser,
-  fetchRegisterUserSuccess,
-  fetchRegisterUserFailure,
+  // fetchRegisterUserSuccess,
+  // fetchRegisterUserFailure,
+  fetchSignInSuccess,
+  fetchSignInFailure,
 } from "../actions/user";
+import {localStorageToken} from './localStorage'
 
 const api = (data) =>
   fetch("https://loft-taxi.glitch.me/register", {
@@ -18,9 +21,10 @@ export default function* watchRegisterUser() {
   yield takeLatest(fetchRegisterUser, function* (action) {
     try {
       const result = yield call(api, action.payload);
-      yield put(fetchRegisterUserSuccess(result));
+      localStorageToken(result, true)
+      yield put(fetchSignInSuccess(result));
     } catch (error) {
-      yield put(fetchRegisterUserFailure(error));
+      yield put(fetchSignInFailure(error));
     }
   });
 }
