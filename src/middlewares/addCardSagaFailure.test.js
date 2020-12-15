@@ -1,6 +1,5 @@
 import {
   fetchAddCard,
-  fetchAddCardSuccess,
   fetchAddCardFailure,
 } from "../actions/card";
 import {workerAddCard} from './addCardSaga'
