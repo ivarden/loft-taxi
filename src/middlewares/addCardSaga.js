@@ -4,23 +4,17 @@ import {
   fetchAddCardSuccess,
   fetchAddCardFailure,
 } from "../actions/card";
+import { fetchAddCardApi } from "./api";
 
-const api = (data) =>
-  fetch(`https://loft-taxi.glitch.me/card`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((response) => response.json());
+export function* workerAddCard(action) {
+  try {
+    const result = yield call(fetchAddCardApi, action.payload);
+    yield put(fetchAddCardSuccess(result));
+  } catch (error) {
+    yield put(fetchAddCardFailure(error));
+  }
+}
 
 export default function* watchAddCard() {
-  yield takeLatest(fetchAddCard, function* (action) {
-    try {
-      const result = yield call(api, action.payload);
-      yield put(fetchAddCardSuccess(result));
-    } catch (error) {
-      yield put(fetchAddCardFailure(error));
-    }
-  });
+  yield takeLatest(fetchAddCard, workerAddCard);
 }

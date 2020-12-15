@@ -6,12 +6,12 @@ import {
   signOut,
   signOutSuccess,
 } from "../actions/user";
-import { signInApi } from "./api";
-import {localStorageToken} from './localStorage'
+import { fetchSignInApi } from "./api";
+import { localStorageToken } from "./localStorage";
 
-export function* requestSignInSaga(action) {
+export function* workerSignInSaga(action) {
   try {
-    const result = yield call(signInApi, action.payload);
+    const result = yield call(fetchSignInApi, action.payload);
     localStorageToken(result, true);
     yield put(fetchSignInSuccess(result));
   } catch (error) {
@@ -19,12 +19,12 @@ export function* requestSignInSaga(action) {
   }
 }
 
-export function* requestSignOut(action) {
+export function* workerSignOut(action) {
   localStorageToken(null, false);
   yield put(signOutSuccess());
 }
 
 export default function* watchAuthUser() {
-  yield takeLatest(fetchSignIn, requestSignInSaga);
-  yield takeLatest(signOut, requestSignOut);
+  yield takeLatest(fetchSignIn, workerSignInSaga);
+  yield takeLatest(signOut, workerSignOut);
 }

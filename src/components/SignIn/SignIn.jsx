@@ -25,7 +25,6 @@ const SignIn = ({ isLoggedIn, history, signIn, error }) => {
   };
 
   useEffect(() => {
-    // isLoggedIn && history.push("/profile");
     isLoggedIn && history.push("/map");
   }, [isLoggedIn, history]);
 
@@ -51,6 +50,7 @@ const SignIn = ({ isLoggedIn, history, signIn, error }) => {
         <Input
           label="Password"
           name="password"
+          type="password"
           value={user.password}
           onChange={inputHandle}
         />

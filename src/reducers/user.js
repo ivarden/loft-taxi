@@ -5,11 +5,14 @@ import {
 } from "../actions/user.js";
 import { handleActions } from "redux-actions";
 
+const { success, token } = !!localStorage.getItem("loftTaxi")
+  ? JSON.parse(localStorage.getItem("loftTaxi"))
+  : { success: false, token: null };
+
 const initialState = {
-  success: JSON.parse(localStorage.getItem('loftTaxi')).success || false,
-  token: JSON.parse(localStorage.getItem('loftTaxi')).token || null,
-  isLoggedIn: JSON.parse(localStorage.getItem('loftTaxi')).success || false,
-  error: null,
+  success: success,
+  token: token,
+  isLoggedIn: success,
 };
 
 const user = handleActions(
