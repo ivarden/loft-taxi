@@ -42,17 +42,16 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
       [name]: value,
     }));
   };
-  
-  const addressFilter = () => {
-    let filteredAddresses = addresses.filter((el) => el !== address.address1);
-    setAddress((prev) => ({
-      ...prev,
-      addresses1: addresses,
-      addresses2: filteredAddresses,
-    }));
-  };
 
   useEffect(() => {
+    function addressFilter() {
+      let filteredAddresses = addresses.filter((el) => el !== address.address1);
+      setAddress((prev) => ({
+        ...prev,
+        addresses1: addresses,
+        addresses2: filteredAddresses,
+      }));
+    }
     addressFilter();
   }, [address.address1, addresses]);
 
