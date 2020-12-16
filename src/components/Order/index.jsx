@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 import Form from "../Form";
-import { fetchOrder } from "../../actions/order";
 import InputBase from "@material-ui/core/InputBase";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -15,34 +13,51 @@ import { useStyles } from "./styles";
 
 import { car_list } from "./data";
 
-function Order({ handleOrder }) {
+function Order({ handleOrder, fetchOrder, history, addresses, error }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { addresses } = useSelector((state) => state.addresses);
 
   const [address, setAddress] = React.useState({
-    address1: addresses[0],
-    address2: addresses[1],
+    address1: "",
+    address2: "",
+    addresses1: addresses,
+    addresses2: addresses,
     car: 50,
   });
 
-  const onSubmit = (e) => {
+  const onSubmitForm = (e) => {
     e.preventDefault();
     const address1 = address.address1;
     const address2 = address.address2;
     const car = address.car;
-    dispatch(fetchOrder({ address1, address2, car }));
+    fetchOrder({ address1, address2, car });
     handleOrder();
   };
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     e.preventDefault();
-    setAddress((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    let name = [e.target.name];
+    let value = e.target.value;
+    setAddress((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
+  useEffect(() => {
+    function addressFilter() {
+      let filteredAddresses = addresses.filter((el) => el !== address.address1);
+      setAddress((prev) => ({
+        ...prev,
+        addresses1: addresses,
+        addresses2: filteredAddresses,
+      }));
+    }
+    addressFilter();
+  }, [address.address1, addresses]);
 
   return (
     <Box component="div" className={classes.root}>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmitForm}>
         <TextField
           className={classes.textField}
           id="address1"
@@ -51,7 +66,7 @@ function Order({ handleOrder }) {
           size="small"
           label="From"
           value={address.address1}
-          onChange={handleChange}
+          onChange={handleInputChange}
           variant="outlined"
           InputProps={{
             startAdornment: (
@@ -61,7 +76,7 @@ function Order({ handleOrder }) {
             ),
           }}
         >
-          {addresses.map((option) => (
+          {address.addresses1.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -76,7 +91,7 @@ function Order({ handleOrder }) {
           size="small"
           label="Choose destination"
           value={address.address2}
-          onChange={handleChange}
+          onChange={handleInputChange}
           variant="outlined"
           InputProps={{
             startAdornment: (
@@ -86,7 +101,7 @@ function Order({ handleOrder }) {
             ),
           }}
         >
-          {addresses.map((option) => (
+          {address.addresses2.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -108,14 +123,30 @@ function Order({ handleOrder }) {
                   id="car"
                   name="car"
                   value={card.price}
-                  onClick={handleChange}
+                  onClick={handleInputChange}
                 />
               </div>
             </MenuItem>
           ))}
         </div>
 
-        <Button title="Order" className={classes.button} />
+        {!!address.address1 && !!address.address2 && !!error ? (
+          <Button
+            title="Please enter your credit card"
+            className={classes.button}
+            onClick={() => {
+              history.push("/profile");
+            }}
+          />
+        ) : (
+          <Button
+            title="Order"
+            className={classes.button}
+            disabled={
+              !!address.address1 && !!address.address2 && !error ? false : true
+            }
+          />
+        )}
       </Form>
     </Box>
   );

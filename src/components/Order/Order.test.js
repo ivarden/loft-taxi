@@ -8,9 +8,10 @@ describe("Order form", () => {
   it("renders Order form", () => {
     const mockStore = {
       getState: () => ({
-        addresses: { addresses: ["Пулково (LED)", "Эрмитаж"] },
-        handleOrder: () => {},
+        addresses: ["Пулково (LED)", "Эрмитаж"],
+        card: { error: null },
         car_list: car_list,
+        handleOrder: () => {},
       }),
       subscribe: () => {},
       dispatch: () => ({ fetchOrder: () => {} }),
@@ -18,7 +19,7 @@ describe("Order form", () => {
     const { container } = render(
       <BrowserRouter>
         <Provider store={mockStore}>
-          <Order handleOrder={()=>{}} />
+          <Order handleOrder={() => {}} addresses={[]}/>
         </Provider>
       </BrowserRouter>
     );

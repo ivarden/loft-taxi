@@ -43,24 +43,6 @@ const useStyles = styles({
   },
 });
 
-// let PrivateRouter =( {
-//   component: RouteComponent,
-//   isLoggedIn,
-//   loginPath,
-//   ...rest
-// }) => (
-//   <Route
-//     {...rest}
-//     render={(routeProps) =>
-//       isLoggedIn ? (
-//         <RouteComponent {...routeProps} />
-//       ) : (
-//         <Redirect to={loginPath} />
-//       )
-//     }
-//   />
-// );
-
 const App = () => {
   const classes = useStyles();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);

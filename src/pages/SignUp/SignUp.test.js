@@ -11,7 +11,6 @@ describe("Sign in page", () => {
           store={{
             getState: () => ({
               user: { isLoggedIn: false, success: false, token: null },
-              newUser: { success: false, token: null },
             }),
             subscribe: () => {},
             dispatch: () => ({

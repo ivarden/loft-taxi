@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import SignIn from "./pages/SignIn";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
 describe("Sign in page", () => {
@@ -13,11 +13,11 @@ describe("Sign in page", () => {
     };
     const history = createMemoryHistory();
     const { container } = render(
-      <BrowserRouter history={history}>
+      <Router history={history}>
         <Provider store={mockStore}>
           <SignIn />
         </Provider>
-      </BrowserRouter>
+      </Router>
     );
     expect(container.innerHTML).toMatch("Email");
     expect(container.innerHTML).toMatch("Password");

@@ -1,28 +1,37 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import rootReducer from "./reducers/";
-import { authUser } from "./middlewares/authUser";
-import { getAddresses } from "./middlewares/getAddresses";
-import { registerUser } from "./middlewares/registerUser";
-import { addCard } from "./middlewares/addCard";
-import { getCard } from "./middlewares/getCard";
-import { addOrder } from "./middlewares/addOrder";
+import createSagaMiddleware from "redux-saga";
+import { fork } from "redux-saga/effects";
+import watchAuthUser from "./middlewares/authUserSaga";
+import watchRegisterUser from "./middlewares/registerUserSaga";
+import watchGetCard from "./middlewares/getCardSaga";
+import watchGetAddresses from "./middlewares/getAddressesSaga";
+import watchAddOrder from "./middlewares/addOrderSaga";
+import watchAddCard from "./middlewares/addCardSaga";
 
+const sagaMiddleware = createSagaMiddleware();
+function* rootSaga() {
+  yield fork(watchAuthUser);
+  yield fork(watchRegisterUser);
+  yield fork(watchGetCard);
+  yield fork(watchGetAddresses);
+  yield fork(watchAddOrder);
+  yield fork(watchAddCard);
+}
 
 const createAppStore = () => {
   const store = createStore(
     rootReducer,
     compose(
-      applyMiddleware(authUser),
-      applyMiddleware(getAddresses),
-      applyMiddleware(registerUser),
-      applyMiddleware(addCard),
-      applyMiddleware(getCard),
-      applyMiddleware(addOrder),
+      applyMiddleware(sagaMiddleware),
       window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : (noop) => noop
     )
   );
+
+  sagaMiddleware.run(rootSaga);
+
   return store;
 };
 

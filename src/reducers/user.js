@@ -1,5 +1,19 @@
-import { fetchSignInSuccess, fetchSignInFailure, signOut } from "../actions/user.js";
+import {
+  fetchSignInSuccess,
+  fetchSignInFailure,
+  signOutSuccess,
+} from "../actions/user.js";
 import { handleActions } from "redux-actions";
+
+const { success, token } = !!localStorage.getItem("loftTaxi")
+  ? JSON.parse(localStorage.getItem("loftTaxi"))
+  : { success: false, token: null };
+
+const initialState = {
+  success: success,
+  token: token,
+  isLoggedIn: success,
+};
 
 const user = handleActions(
   {
@@ -13,13 +27,15 @@ const user = handleActions(
       ...payload,
       isLoggedIn: payload.success,
     }),
-    [signOut]: (state, { payload }) => ({
+    [signOutSuccess]: (state, { payload }) => ({
       ...state,
-      ...payload,
+      success: false,
       isLoggedIn: false,
+      token: null,
+      error: null,
     }),
   },
-  { success: false, token: null, error: null, isLoggedIn: false }
+  initialState
 );
 
 export default user;
