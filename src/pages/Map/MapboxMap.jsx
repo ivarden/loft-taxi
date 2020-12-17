@@ -66,10 +66,8 @@ class MapboxMap extends React.Component {
     mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
     this.map_();
     this.map.on("load", () => {
-      drawRoute(
-        this.map,
-        this.props.route || [[this.state.lng, this.state.lat]]
-      );
+      drawRoute(this.map, [[this.state.lng, this.state.lat]]);
+      // drawRoute(this.map, this.props.route || [[this.state.lng, this.state.lat]]);
     });
   }
 

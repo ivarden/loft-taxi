@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Order from "../../components/Order";
 import Main from "../../components/Main";
 import PopUp from "./PopUp";
-// import Point from "./Point";
 import MapboxMap from "./MapboxMap";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
@@ -44,7 +43,6 @@ function Map({
       ) : (
         <PopUp handleOrder={handleOrder} />
       )}
-      {/* <Point /> */}
     </Main>
   );
 }
