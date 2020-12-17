@@ -115,7 +115,14 @@ const PaymentForm = ({
       expiry: card.expiryDate || "",
       cvc: card.cvc || "",
     }));
-  }, [card.cardNumber, card.cardName, card.expiryDate, card.cvc]);
+  }, [
+    card.cardNumber,
+    card.cardName,
+    card.expiryDate,
+    card.cvc,
+    token,
+    getCard,
+  ]);
 
   return (
     <div id="PaymentForm" className={classes.root}>
