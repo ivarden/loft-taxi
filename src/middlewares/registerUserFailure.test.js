@@ -1,6 +1,6 @@
 import {
   fetchRegisterUser,
-  fetchSignInFailure,
+  fetchRegisterUserFailure,
 } from "../actions/user";
 import { workerhRegisterUser } from "./registerUserSaga";
 
@@ -17,7 +17,7 @@ describe("FETCH_REGISTER_USER", () => {
     const dispatched = await recordSaga(workerhRegisterUser, fetchRegisterUser());
     expect(dispatched).toEqual([
       {
-        type: fetchSignInFailure.toString(),
+        type: fetchRegisterUserFailure.toString(),
         error: true,
         payload: Error(),
       },

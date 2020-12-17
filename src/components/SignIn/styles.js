@@ -20,6 +20,7 @@ export const useStyles = styles({
     },
     button: {
       marginBottom: ".5rem",
+      marginTop: "1rem",
     },
     etc: { color: "#FDBF5A", textDecoration: "none", cursor: "pointer" },
   });
