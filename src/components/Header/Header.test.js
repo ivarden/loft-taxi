@@ -4,8 +4,8 @@ import Navigation from "../Navigation";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-describe("Logo", () => {
-  it("renders Logo", () => {
+describe("Header", () => {
+  it("renders Header", () => {
     const mockStore = {
       getState: () => ({
         user: { isLoggedIn: true },
