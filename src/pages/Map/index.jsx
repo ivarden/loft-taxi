@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Order from "../../components/Order";
 import Main from "../../components/Main";
-import PopUp from "./PopUp";
-import MapboxMap from "./MapboxMap";
+import PopUp from "../../components/PopUp/PopUpMap";
+import MapboxMap from "../../components/MapboxMap";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
 import { fetchOrder } from "../../actions/order";

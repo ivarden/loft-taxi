@@ -4,8 +4,8 @@ import {
   fetchRegisterUserSuccess,
   fetchRegisterUserFailure,
 } from "../actions/user";
-import { localStorageTokenNewUser } from "./localStorage";
-import { fetchRegisterUserApi } from "./api";
+import { localStorageTokenNewUser } from "../helpers/localStorage";
+import { fetchRegisterUserApi } from "../api/userApi";
 
 export function* workerhRegisterUser(action) {
   try {

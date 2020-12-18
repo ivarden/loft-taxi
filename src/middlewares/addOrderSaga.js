@@ -4,7 +4,7 @@ import {
   fetchOrderSuccess,
   fetchOrderFailure,
 } from "../actions/order";
-import { fetcAddOrderApi } from "./api";
+import { fetcAddOrderApi } from "../api/orderApi";
 
 export function* workerAddOrder(action) {
   try {

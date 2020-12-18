@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import Form from "../Form";
-import InputBase from "@material-ui/core/InputBase";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
@@ -10,8 +9,7 @@ import NearMeIcon from "@material-ui/icons/NearMe";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import Button from "../Button";
 import { useStyles } from "./styles";
-
-import { car_list } from "./data";
+import CarCards from './CarCards'
 
 function Order({ handleOrder, fetchOrder, history, addresses, error }) {
   const classes = useStyles();
@@ -19,8 +17,8 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
   const [address, setAddress] = React.useState({
     address1: "",
     address2: "",
-    addresses1: addresses,
-    addresses2: addresses,
+    addresses1: addresses || ["No streets"],
+    addresses2: addresses || ["No streets"],
     car: 50,
   });
 
@@ -43,17 +41,22 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
     }));
   };
 
-  useEffect(() => {
-    function addressFilter() {
-      let filteredAddresses = addresses.filter((el) => el !== address.address1);
+  const addressFilter = useCallback(
+    (address1, address2) => {
+      let filteredAddresses1 = addresses.filter((el) => el !== address1);
+      let filteredAddresses2 = addresses.filter((el) => el !== address2);
       setAddress((prev) => ({
         ...prev,
-        addresses1: addresses,
-        addresses2: filteredAddresses,
+        addresses1: filteredAddresses2,
+        addresses2: filteredAddresses1,
       }));
-    }
-    addressFilter();
-  }, [address.address1, addresses]);
+    },
+    [addresses]
+  );
+
+  useEffect(() => {
+    addressFilter(address.address1, address.address2);
+  }, [address.address1, address.address2, addressFilter]);
 
   return (
     <Box component="div" className={classes.root}>
@@ -108,27 +111,7 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
           ))}
         </TextField>
 
-        <div className={classes.cards}>
-          {car_list.map((card) => (
-            <MenuItem key={card.name} className={classes.menu_item}>
-              <div className={classes.card}>
-                <strong>{card.name}</strong>
-                <span>Price</span>
-                <strong>
-                  {card.price} {card.currency}
-                </strong>
-                <img src={card.picture} alt={card.name} />
-                <InputBase
-                  className={classes.cardInput}
-                  id="car"
-                  name="car"
-                  value={card.price}
-                  onClick={handleInputChange}
-                />
-              </div>
-            </MenuItem>
-          ))}
-        </div>
+        <CarCards handleInputChange={handleInputChange} />
 
         {!!address.address1 && !!address.address2 && !!error ? (
           <Button

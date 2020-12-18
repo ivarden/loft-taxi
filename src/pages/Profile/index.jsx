@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Main from "../../components/Main";
-import PopUp from "./PopUp";
+import PopUp from "../../components/PopUp/PopUpProfile";
 import PaymentForm from "../../components/PaymentForm";
 
 export default function Profiles() {

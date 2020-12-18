@@ -4,7 +4,7 @@ import {
   fetchAddCardSuccess,
   fetchAddCardFailure,
 } from "../actions/card";
-import { fetchAddCardApi } from "./api";
+import { fetchAddCardApi } from "../api/cardApi";
 
 export function* workerAddCard(action) {
   try {

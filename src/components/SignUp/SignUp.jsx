@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
 import MuiAlert from "@material-ui/lab/Alert";
 import TextField from "@material-ui/core/TextField";
@@ -8,30 +7,7 @@ import Form from "../Form";
 import Button from "../Button";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
-const useStyles = styles({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    alignSelf: "center",
-    maxWidth: "400px",
-    width: "100%",
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "10px",
-    boxSizing: "border-box",
-    padding: "20px 40px",
-  },
-  button: {
-    margin: "1rem 0 .5rem 0",
-  },
-  etc: {
-    color: "#FDBF5A",
-    textDecoration: "none",
-    cursor: "pointer",
-  },
-});
+import { useStyles } from "./styles";
 
 const SignUp = ({ signUp, history, success, error, token }) => {
   const classes = useStyles();

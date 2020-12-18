@@ -4,7 +4,7 @@ import {
   fetchAddressesFailure,
 } from "../actions/addresses";
 import { fetchAddresses } from "../actions/addresses";
-import { fetchAddressesApi } from "./api";
+import { fetchAddressesApi } from "../api/addressesApi";
 
 export function* workerFetchAddresses (action) {
   try {

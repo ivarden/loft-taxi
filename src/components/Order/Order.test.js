@@ -2,15 +2,13 @@ import { render } from "@testing-library/react";
 import Order from "./";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { car_list } from "./data";
 
 describe("Order form", () => {
   it("renders Order form", () => {
     const mockStore = {
       getState: () => ({
-        addresses: ["Пулково (LED)", "Эрмитаж"],
+        addresses: ["", ""],
         card: { error: null },
-        car_list: car_list,
         handleOrder: () => {},
       }),
       subscribe: () => {},
