@@ -23,7 +23,9 @@ function Map({
   const handleOrder = () => {
     setOrder((prev) => !prev);
   };
-
+  useEffect(() => {
+    document.title = "Map";
+  }, []);
   useEffect(() => {
     fetchCard(token);
     fetchAddresses();
