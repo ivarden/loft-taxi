@@ -2,7 +2,7 @@
 
 
 ### `yarn start`
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [https://github.com/ivarden/loft-taxi](https://github.com/ivarden/loft-taxi) to view it in the browser.
 
 ### `yarn test`
 
