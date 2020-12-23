@@ -2,6 +2,8 @@ import {
   fetchSignInSuccess,
   fetchSignInFailure,
   signOutSuccess,
+  fetchRegisterUserSuccess,
+  fetchRegisterUserFailure,
 } from "../actions/user.js";
 import { handleActions } from "redux-actions";
 
@@ -23,6 +25,16 @@ const user = handleActions(
       isLoggedIn: payload.success,
     }),
     [fetchSignInFailure]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+      isLoggedIn: payload.success,
+    }),
+    [fetchRegisterUserSuccess]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+      isLoggedIn: payload.success,
+    }),
+    [fetchRegisterUserFailure]: (state, { payload }) => ({
       ...state,
       ...payload,
       isLoggedIn: payload.success,

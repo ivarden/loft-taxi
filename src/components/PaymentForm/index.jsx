@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Cards from "react-credit-cards";
 import { connect } from "react-redux";
 import { compose } from "lodash/fp";
@@ -13,7 +13,6 @@ import {
   formatCreditCardNumber,
   formatCVC,
   formatExpirationDate,
-  // formatFormData,
 } from "./utils";
 
 const useStyles = (theme) => ({
@@ -35,8 +34,15 @@ const useStyles = (theme) => ({
   button: { margin: "0", width: "100%" },
 });
 
-class PaymentForm extends React.Component {
-  state = {
+const PaymentForm = ({
+  addCard,
+  getCard,
+  handlePayment,
+  token,
+  card,
+  classes,
+}) => {
+  const [state, setState] = useState({
     number: "",
     name: "",
     expiry: "",
@@ -44,35 +50,41 @@ class PaymentForm extends React.Component {
     issuer: "",
     focused: "",
     formData: null,
-  };
+  });
 
-  handleCallback = ({ issuer }, isValid) => {
+  const formRef = useRef();
+
+  const handleCallback = ({ issuer }, isValid) => {
     if (isValid) {
-      this.setState({ issuer });
+      setState((prevState) => ({ ...prevState, issuer }));
     }
   };
 
-  handleInputFocus = ({ target }) => {
-    this.setState({
-      focused: target.name,
-    });
+  const handleInputFocus = ({ target }) => {
+    setState((prevState) => ({ ...prevState, focused: target.name }));
   };
 
-  handleInputChange = ({ target }) => {
+  const clearLetter = (value = "") => {
+    let res = [...value.replace(/[0-9]/gi, "")].join("");
+    return res;
+  };
+
+  const handleInputChange = ({ target }) => {
     if (target.name === "number") {
       target.value = formatCreditCardNumber(target.value);
     } else if (target.name === "expiry") {
       target.value = formatExpirationDate(target.value);
     } else if (target.name === "cvc") {
       target.value = formatCVC(target.value);
+    } else if (target.name === "name") {
+      target.value = clearLetter(target.value);
     }
 
-    this.setState({ [target.name]: target.value });
+    setState((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // const { issuer } = this.state;
     const formData = [...e.target.elements]
       .filter((d) => d.name)
       .reduce((acc, d) => {
@@ -80,143 +92,110 @@ class PaymentForm extends React.Component {
         return acc;
       }, {});
 
-    this.setState({ formData });
+    setState({ formData });
 
-    this.props.addCard({
-      cardNumber: this.state.number,
-      cardName: this.state.name,
-      expiryDate: this.state.expiry,
-      cvc: this.state.cvc,
-      token: this.props.token,
+    addCard({
+      cardNumber: state.number,
+      cardName: state.name,
+      expiryDate: state.expiry,
+      cvc: state.cvc,
+      token: token,
     });
 
-    this.props.handlePayment();
-    this.form.reset();
+    handlePayment();
+    formRef.current.reset();
   };
 
-  UNSAFE_componentWillUpdate(prevProps) {
-    if (JSON.stringify(prevProps.card) !== JSON.stringify(this.props.card)) {
-      this.setState((state) => ({
-        number: this.props.card.cardNumber || '',
-        name: this.props.card.cardName || '',
-        expiry: this.props.card.expiryDate || '',
-        cvc: this.props.card.cvc || '',
-      }));
-    }
-  }
-
-  componentDidMount() {
-    this.props.getCard(this.props.token);
-    const { cardNumber, cardName, expiryDate, cvc } = this.props.card;
-    this.setState((state) => ({
-      number: cardNumber || "",
-      name: cardName || "",
-      expiry: expiryDate || "",
-      cvc: cvc || "",
+  useEffect(() => {
+    getCard(token);
+    setState((prevState) => ({
+      ...prevState,
+      number: card.cardNumber || "",
+      name: card.cardName || "",
+      expiry: card.expiryDate || "",
+      cvc: card.cvc || "",
     }));
-  }
+  }, [
+    card.cardNumber,
+    card.cardName,
+    card.expiryDate,
+    card.cvc,
+    token,
+    getCard,
+  ]);
 
-  render() {
-    const {
-      name,
-      number,
-      expiry,
-      cvc,
-      focused,
-      issuer,
-      // formData
-    } = this.state;
-    const {
-      handleCallback,
-      handleInputFocus,
-      handleInputChange,
-      handleSubmit,
-    } = this;
-    const { classes } = this.props;
-
-    return (
-      <div id="PaymentForm" className={classes.root}>
-        <Typography variant="h5" component="h2" className={classes.title}>
-          Enter your card
-        </Typography>
-        <Cards
-          number={number}
-          name={name}
-          expiry={expiry}
-          cvc={cvc}
-          focused={focused}
-          callback={handleCallback}
+  return (
+    <div id="PaymentForm" className={classes.root}>
+      <Typography variant="h5" component="h2" className={classes.title}>
+        Enter your card
+      </Typography>
+      <Cards
+        number={state.number}
+        name={state.name}
+        expiry={state.expiry}
+        cvc={state.cvc}
+        focused={state.focused}
+        callback={handleCallback}
+      />
+      <form ref={formRef} onSubmit={handleSubmit} className={classes.form}>
+        <Input
+          type="tel"
+          name="number"
+          label="Card Number"
+          pattern="[\d| ]{16,22}"
+          value={state.number}
+          required
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+          className={classes.number}
         />
-        <form
-          ref={(c) => (this.form = c)}
-          onSubmit={handleSubmit}
-          className={classes.form}
-        >
-          <Input
-            type="tel"
-            name="number"
-            label="Card Number"
-            pattern="[\d| ]{16,22}"
-            value={number}
-            required
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
-            className={classes.number}
-          />
 
-          <Input
-            type="text"
-            name="name"
-            label="Name on card"
-            value={name}
-            required
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
-            className={classes.name}
-          />
-          <Input
-            type="tel"
-            name="expiry"
-            label="Expiry date"
-            pattern="\d\d/\d\d"
-            value={expiry}
-            required
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
-            className={classes.expiry}
-          />
-          <Input
-            type="tel"
-            name="cvc"
-            label="CVC/CVV"
-            pattern="\d{3,4}"
-            value={cvc}
-            required
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
-            className={classes.cvc}
-          />
-          <input type="hidden" name="issuer" value={issuer} />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Save
-          </Button>
-        </form>
-        {/* {formData && (
-          <div className="App-highlight">
-            {formatFormData(formData).map((d, i) => (
-              <div key={i}>{d}</div>
-            ))}
-          </div>
-        )} */}
-      </div>
-    );
-  }
-}
+        <Input
+          type="text"
+          name="name"
+          label="Name on card"
+          pattern="/^[A-Za-z]+$/"
+          value={state.name}
+          required
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+          className={classes.name}
+        />
+        <Input
+          type="tel"
+          name="expiry"
+          label="Expiry date"
+          pattern="\d\d/\d\d"
+          value={state.expiry}
+          required
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+          className={classes.expiry}
+        />
+        <Input
+          type="tel"
+          name="cvc"
+          label="CVC/CVV"
+          pattern="\d{3,4}"
+          value={state.cvc}
+          required
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+          className={classes.cvc}
+        />
+        <input type="hidden" name="issuer" value={state.issuer} />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
+          Save
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return { token: state.user.token, card: state.card };

@@ -31,6 +31,12 @@ export const useStyles = styles({
   },
   "@global": {
     body: { padding: 0 },
+    ".MuiListItem-root.Mui-focusVisible": {
+      backgroundColor: "rgba(251, 199, 13, 1)",
+    },
+    ".MuiListItem-root.Mui-selected .MuiListItem-root.Mui-selected:hover": {
+      backgroundColor: "rgba(251, 199, 13, 1)",
+    },
   },
   cards: {
     display: "flex",
@@ -68,9 +74,6 @@ export const useStyles = styles({
     position: "relative",
     borderRadius: "10px",
     padding: "3px",
-    "&:hover": {
-      backgroundColor: "rgba(251, 199, 13, .8)",
-    },
   },
   cardInput: {
     position: "absolute",
@@ -84,7 +87,7 @@ export const useStyles = styles({
       background: "transparent",
       width: "100%",
       height: "100%",
-      color: 'transparent'
+      color: "transparent",
     },
   },
 });

@@ -6,8 +6,8 @@ import {
   signOut,
   signOutSuccess,
 } from "../actions/user";
-import { fetchSignInApi } from "./api";
-import { localStorageToken } from "./localStorage";
+import { fetchSignInApi } from "../api/userApi";
+import { localStorageToken } from "../helpers/localStorage";
 
 export function* workerSignInSaga(action) {
   try {

@@ -1,43 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "../../helpers/useStyles";
 import Box from "@material-ui/core/Box";
 import MuiAlert from "@material-ui/lab/Alert";
+import TextField from "@material-ui/core/TextField";
 import Form from "../Form";
-import Input from "../Input";
 import Button from "../Button";
-
-const useStyles = styles({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    alignSelf: "center",
-    maxWidth: "400px",
-    width: "100%",
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "10px",
-    boxSizing: "border-box",
-    padding: "20px 40px",
-  },
-  button: {
-    margin: "1rem 0 .5rem 0",
-  },
-  etc: {
-    color: "#FDBF5A",
-    textDecoration: "none",
-    cursor: "pointer",
-  },
-});
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useStyles } from "./styles";
 
 const SignUp = ({ signUp, history, success, error, token }) => {
   const classes = useStyles();
-  const [signup, setSignin] = useState({
-    email: "",
-    name: "",
-    surname: "",
-    password: "",
+
+  const validationSchema = yup.object({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    name: yup
+      .string("Enter your name")
+      .min(2, "Enter a valid name")
+      .required("Name is required"),
+    surname: yup
+      .string("Enter your surname")
+      .min(2, "Enter a valid surname")
+      .required("Surname is required"),
+    password: yup
+      .string("Enter your password")
+      .min(8, "Password should be of minimum 8 characters length")
+      .required("Password is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      name: "",
+      surname: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      signUp({ ...values });
+    },
   });
 
   useEffect(() => {
@@ -46,21 +50,6 @@ const SignUp = ({ signUp, history, success, error, token }) => {
     }
   }, [success, error, token, history]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const email = signup.email;
-    const name = signup.name;
-    const surname = signup.surname;
-    const password = signup.password;
-    signUp({ email, name, surname, password });
-  };
-
-  const onChangeInput = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setSignin((state) => ({ ...state, [name]: value }));
-  };
-
   return (
     <Box component="div" className={classes.root}>
       {error && (
@@ -68,36 +57,61 @@ const SignUp = ({ signUp, history, success, error, token }) => {
           <strong>{error}</strong>
         </MuiAlert>
       )}
-      <Form onSubmit={onSubmit}>
-        <Input
-          label="Email"
+      <Form onSubmit={formik.handleSubmit}>
+        <TextField
+          fullWidth
+          id="email"
           name="email"
-          value={signup.email}
-          onChange={onChangeInput}
+          label="Email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          variant="outlined"
+          margin="normal"
           required
         />
-        <Input
-          label="Name"
+        <TextField
+          fullWidth
+          id="name"
           name="name"
-          value={signup.name}
-          onChange={onChangeInput}
+          label="Name"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+          variant="outlined"
+          margin="normal"
           required
         />
-        <Input
-          label="Surname"
+        <TextField
+          fullWidth
+          id="surname"
           name="surname"
-          value={signup.surname}
-          onChange={onChangeInput}
+          label="Surname"
+          value={formik.values.surname}
+          onChange={formik.handleChange}
+          error={formik.touched.surname && Boolean(formik.errors.surname)}
+          helperText={formik.touched.surname && formik.errors.surname}
+          variant="outlined"
+          margin="normal"
           required
         />
-        <Input
-          label="Password"
+        <TextField
+          fullWidth
+          id="password"
           name="password"
-          value={signup.password}
-          onChange={onChangeInput}
+          label="Password"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+          variant="outlined"
+          margin="normal"
           required
         />
-        <Button title="Sign up" className={classes.button} />
+        <Button title="Sign up" className={classes.button} type="submit" />
         <p>
           Already Registered?{"  "}
           <Link to="/signin" className={classes.etc}>

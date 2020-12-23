@@ -1,61 +1,84 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Form from "../Form";
-import Input from "../Input";
 import Button from "../Button";
 import { useStyles } from "./styles";
 import MuiAlert from "@material-ui/lab/Alert";
+import TextField from "@material-ui/core/TextField";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 const SignIn = ({ isLoggedIn, history, signIn, error }) => {
-  const [user, setUser] = useState({ email: "", password: "" });
   const classes = useStyles();
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    localStorage.setItem("loftTaxi", JSON.stringify({ email, password }));
-    signIn({ email, password });
-  };
-
-  const inputHandle = (e) => {
-    e.preventDefault();
-    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const userLocalStorage = JSON.parse(localStorage.getItem("loftTaxi"));
+  let email = userLocalStorage ? userLocalStorage.email : "";
+  let password = userLocalStorage ? userLocalStorage.password : "";
 
   useEffect(() => {
     isLoggedIn && history.push("/map");
   }, [isLoggedIn, history]);
 
-  useEffect(() => {
-    const userLocalStorage = JSON.parse(localStorage.getItem("loftTaxi"));
-    userLocalStorage && setUser({ ...userLocalStorage });
-  }, []);
+  const validationSchema = yup.object({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup
+      .string("Enter your password")
+      .min(6, "Password should be of minimum 8 characters length")
+      .required("Password is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: email,
+      password: password,
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      localStorage.setItem("loftTaxi", JSON.stringify({ ...values }));
+      signIn({ ...values });
+    },
+  });
 
   return (
     <Box component="div" className={classes.root}>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={formik.handleSubmit}>
         {error && (
           <MuiAlert open={error} severity="error">
             <strong>{error}</strong>
           </MuiAlert>
         )}
-        <Input
-          label="Email"
+        <TextField
+          fullWidth
+          id="email"
           name="email"
-          value={user.email}
-          onChange={inputHandle}
+          label="Email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          variant="outlined"
+          margin="normal"
+          required
         />
-        <Input
-          label="Password"
+        <TextField
+          fullWidth
+          id="password"
           name="password"
+          label="Password"
           type="password"
-          value={user.password}
-          onChange={inputHandle}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+          variant="outlined"
+          margin="normal"
+          required
         />
-        <p className={classes.textRight}>Forgot password?</p>
-        <Button title="Sign In" className={classes.button} />
+        {/* <p className={classes.textRight}>Forgot password?</p> */}
+        <Button title="Sign In" className={classes.button} type="submit" />
         <p>
           New user?{" "}
           <Link to="/signup" className={classes.etc}>

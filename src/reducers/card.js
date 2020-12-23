@@ -15,7 +15,6 @@ const card = handleActions(
     [fetchAddCardFailure]: (state, { payload }) => ({ ...payload }),
     [signOutSuccess]: (state, { payload }) => ({}),
   },
-
   {
     id: null,
     cardNumber: null,

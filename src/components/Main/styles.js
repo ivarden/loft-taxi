@@ -1,5 +1,5 @@
 import styles from "../../helpers/useStyles";
-import map from "./map.jpg";
+import map from "../../assets/map.jpg";
 
 export const useStyles = styles({
   root: {

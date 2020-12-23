@@ -1,19 +1,19 @@
 import { takeLatest, call, put } from "redux-saga/effects";
 import {
   fetchRegisterUser,
-  fetchSignInSuccess,
-  fetchSignInFailure,
+  fetchRegisterUserSuccess,
+  fetchRegisterUserFailure,
 } from "../actions/user";
-import { localStorageToken } from "./localStorage";
-import { fetchRegisterUserApi } from "./api";
+import { localStorageTokenNewUser } from "../helpers/localStorage";
+import { fetchRegisterUserApi } from "../api/userApi";
 
 export function* workerhRegisterUser(action) {
   try {
     const result = yield call(fetchRegisterUserApi, action.payload);
-    localStorageToken(result, true);
-    yield put(fetchSignInSuccess(result));
+    localStorageTokenNewUser(result, action.payload);
+    yield put(fetchRegisterUserSuccess(result));
   } catch (error) {
-    yield put(fetchSignInFailure(error));
+    yield put(fetchRegisterUserFailure(error));
   }
 }
 

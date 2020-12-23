@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Main from "../../components/Main";
-import PopUp from "./PopUp";
+import PopUp from "../../components/PopUp/PopUpProfile";
 import PaymentForm from "../../components/PaymentForm";
 
 export default function Profiles() {
@@ -8,7 +8,9 @@ export default function Profiles() {
   const handlePayment = () => {
     setPayment((prev) => !prev);
   };
-
+  useEffect(() => {
+    document.title = "Profile";
+  }, []);
   return (
     <Main style={{ justifyContent: "center" }}>
       {payment ? (

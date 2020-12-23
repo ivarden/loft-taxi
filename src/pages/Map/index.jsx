@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Order from "../../components/Order";
 import Main from "../../components/Main";
-import PopUp from "./PopUp";
-// import Point from "./Point";
-import MapboxMap from "./MapboxMap";
+import PopUp from "../../components/PopUp/PopUpMap";
+import MapboxMap from "../../components/MapboxMap";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
 import { fetchOrder } from "../../actions/order";
@@ -24,7 +23,9 @@ function Map({
   const handleOrder = () => {
     setOrder((prev) => !prev);
   };
-
+  useEffect(() => {
+    document.title = "Map";
+  }, []);
   useEffect(() => {
     fetchCard(token);
     fetchAddresses();
@@ -44,7 +45,6 @@ function Map({
       ) : (
         <PopUp handleOrder={handleOrder} />
       )}
-      {/* <Point /> */}
     </Main>
   );
 }

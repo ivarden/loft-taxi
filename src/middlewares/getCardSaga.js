@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from "redux-saga/effects";
 import { fetchCard, fetchCardSuccess, fetchCardFailure } from "../actions/card";
-import { fetchGetCardApi } from "./api";
+import { fetchGetCardApi } from "../api/cardApi";
 
 export function* workerGetCard(action) {
   try {
