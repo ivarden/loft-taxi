@@ -9,43 +9,55 @@ import NearMeIcon from "@material-ui/icons/NearMe";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import Button from "../Button";
 import { useStyles } from "./styles";
-import CarCards from './CarCards'
+import CarCards from "./CarCards";
 
 function Order({ handleOrder, fetchOrder, history, addresses, error }) {
   const classes = useStyles();
 
-  const [address, setAddress] = React.useState({
+  const checkAddresses = useCallback((_addresses) => {
+    const noStreet = ["sorry, street is unavailable"];
+    if (Array.isArray(_addresses)) {
+      if (_addresses.length) {
+        return _addresses;
+      } else {
+        return noStreet;
+      }
+    } else {
+      return noStreet;
+    }
+  }, []);
+
+  const [state, setState] = React.useState({
     address1: "",
     address2: "",
-    addresses1: addresses || ["No streets"],
-    addresses2: addresses || ["No streets"],
+    addresses1: checkAddresses(addresses),
+    addresses2: checkAddresses(addresses),
     car: 50,
   });
+  const { address1, address2, addresses1, addresses2, car } = state;
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    const address1 = address.address1;
-    const address2 = address.address2;
-    const car = address.car;
     fetchOrder({ address1, address2, car });
     handleOrder();
   };
 
   const handleInputChange = (e) => {
     e.preventDefault();
-    let name = [e.target.name];
+    let name = e.target.name;
     let value = e.target.value;
-    setAddress((prev) => ({
+    setState((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
   const addressFilter = useCallback(
-    (address1, address2) => {
-      let filteredAddresses1 = addresses.filter((el) => el !== address1);
-      let filteredAddresses2 = addresses.filter((el) => el !== address2);
-      setAddress((prev) => ({
+    (_address1, _address2) => {
+      if (!!!addresses) return null;
+      let filteredAddresses1 = addresses.filter((el) => el !== _address1);
+      let filteredAddresses2 = addresses.filter((el) => el !== _address2);
+      setState((prev) => ({
         ...prev,
         addresses1: filteredAddresses2,
         addresses2: filteredAddresses1,
@@ -55,8 +67,8 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
   );
 
   useEffect(() => {
-    addressFilter(address.address1, address.address2);
-  }, [address.address1, address.address2, addressFilter]);
+    addressFilter(address1, address2);
+  }, [address1, address2, addressFilter]);
 
   return (
     <Box component="div" className={classes.root}>
@@ -68,7 +80,7 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
           select
           size="small"
           label="From"
-          value={address.address1}
+          value={address1}
           onChange={handleInputChange}
           variant="outlined"
           InputProps={{
@@ -79,7 +91,7 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
             ),
           }}
         >
-          {address.addresses1.map((option) => (
+          {addresses1.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -93,7 +105,7 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
           select
           size="small"
           label="Choose destination"
-          value={address.address2}
+          value={address2}
           onChange={handleInputChange}
           variant="outlined"
           InputProps={{
@@ -104,7 +116,7 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
             ),
           }}
         >
-          {address.addresses2.map((option) => (
+          {addresses2.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -113,20 +125,21 @@ function Order({ handleOrder, fetchOrder, history, addresses, error }) {
 
         <CarCards handleInputChange={handleInputChange} />
 
-        {!!address.address1 && !!address.address2 && !!error ? (
+        {!!address1 && !!address2 && !!error ? (
           <Button
             title="Please enter your credit card"
             className={classes.button}
             onClick={() => {
               history.push("/profile");
             }}
+            disabled={addresses ? false : true}
           />
         ) : (
           <Button
             title="Order"
             className={classes.button}
             disabled={
-              !!address.address1 && !!address.address2 && !error ? false : true
+              !!address1 && !!address2 && !error && addresses ? false : true
             }
           />
         )}

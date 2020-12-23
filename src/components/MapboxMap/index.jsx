@@ -41,11 +41,12 @@ class MapboxMap extends React.Component {
     this.state = {
       lng: 30.3609,
       lat: 59.9311,
-      zoom: 10,
+      zoom: 9,
     };
   }
 
-  map_ = () => {
+  createMap = () => {
+    mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
     this.map = new mapboxgl.Map({
       container: this.mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
@@ -54,30 +55,38 @@ class MapboxMap extends React.Component {
       width: "100vw",
       height: "100vh",
     });
-
     const nav = new mapboxgl.NavigationControl({
       showCompass: true,
     });
     this.map.addControl(nav, "top-right");
+    this.map.on("load", () => {
+      // drawRoute(this.map, [[this.state.lng, this.state.lat]]);
+      drawRoute(
+        this.map,
+        this.props.route || [[this.state.lng, this.state.lat]]
+      );
+    });
     return this.map;
   };
 
+  updateMap = (prevProps) => {
+    if (this.map.getLayer("route")) {
+      this.map.removeLayer("route");
+    }
+    if (this.map.getSource("route")) {
+      this.map.removeSource("route");
+    }
+    if (JSON.stringify(prevProps.route) !== JSON.stringify(this.props.route)) {
+      drawRoute(this.map, this.props.route);
+    }
+  };
+
   componentDidMount() {
-    mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-    this.map_();
-    this.map.on("load", () => {
-      // drawRoute(this.map, [[this.state.lng, this.state.lat]]);
-      drawRoute(this.map, this.props.route || [[this.state.lng, this.state.lat]]);
-    });
+    this.createMap();
   }
 
   componentDidUpdate(prevProps) {
-    if (JSON.stringify(prevProps.route) !== JSON.stringify(this.props.route)) {
-      this.map_();
-      this.map.on("load", () => {
-        drawRoute(this.map, this.props.route);
-      });
-    }
+    this.updateMap(prevProps);
   }
 
   componentWillUnmount() {
