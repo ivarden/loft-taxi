@@ -1,6 +1,6 @@
 # Loft taxi
 
-[Open to view it in the browser.](https://loft-taxi-5wq0pzxfq.vercel.app/) 
+[Open to view it in the browser.](https://loft-taxi-igfp56uqx.vercel.app/) 
 
 ## Stack:
 - react,
